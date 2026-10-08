@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * Express Server with MongoDB Backend
+ * Express Server with MongoDB Backend (Vercel & Local Supported)
  * ============================================================================
  * Educational Project: Credit Score Simulation Engine
  * Serves REST APIs for credit scoring, profile synchronization, and MongoDB history.
@@ -32,6 +32,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Database connection middleware for Serverless (Vercel) & Local execution
+app.use(async (req, res, next) => {
+    if (!isDBConnected() && process.env.MONGODB_URI) {
+        try {
+            await connectDB();
+        } catch (err) {
+            console.warn('DB connection attempt in request middleware:', err.message);
+        }
+    }
+    next();
+});
+
 // Serve static frontend files (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, '.')));
 
@@ -58,9 +70,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server and Connect to MongoDB
+// Start Server locally when not running as a Vercel Serverless Function
 const startServer = async () => {
-    // Attempt MongoDB Connection
     await connectDB();
 
     app.listen(PORT, () => {
@@ -72,6 +83,8 @@ const startServer = async () => {
     });
 };
 
-startServer();
+if (!process.env.VERCEL) {
+    startServer();
+}
 
 export default app;

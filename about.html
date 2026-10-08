@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project & Academic Details | Credit Score Simulation Engine</title>
+    <meta name="description" content="Academic report, project architecture, viva guide, future scope, and limitations of the Credit Score Simulation Engine.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link active">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>About Project & Academic Details</h1>
+                        <p>2nd-Year B.Tech Computer Science / IT Educational Project Documentation</p>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="badge badge-edu">Academic Project</span>
+                </div>
+            </header>
+
+            <main class="page-container">
+                <div class="container" style="max-width: 1050px; display: flex; flex-direction: column; gap: 2rem;">
+                    
+                    <!-- Section 1: Problem Statement & Objectives -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">1. Problem Statement & Objectives</h3>
+                            <span class="badge badge-edu">Foundations</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.925rem; line-height: 1.7;">
+                            <div>
+                                <h4 style="color: var(--navy-900); margin-bottom: 0.35rem;">Core Problem</h4>
+                                <p>
+                                    Many first-time credit seekers and students do not understand how income, repayment behavior, and existing debt obligations interact to determine creditworthiness. Most commercial scoring systems (such as CIBIL or FICO) operate as proprietary, opaque black boxes, making it difficult for learners to understand cause-and-effect relationships when managing their personal finances.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 style="color: var(--navy-900); margin-bottom: 0.35rem;">Project Objective</h4>
+                                <p>
+                                    The objective of this project is to build a <strong>transparent, rule-based Credit Score Simulation Engine</strong> that estimates creditworthiness on a clean 0–100 scale, explains every mathematical calculation step-by-step, and allows users to simulate hypothetical financial decisions to observe how their score dynamically changes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Proposed Solution & Key Features -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">2. Proposed Solution & Key Features</h3>
+                            <span class="badge badge-rule">System Architecture</span>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+                            <div style="background: var(--slate-50); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                                <h4 style="color: var(--blue-600); font-size: 1rem; margin-bottom: 0.5rem;">Deterministic Rule Engine</h4>
+                                <p style="font-size: 0.85rem;">
+                                    Uses clearly defined bracket intervals and ratio formulas without hidden variables. Every point in the final score is mathematically traceable.
+                                </p>
+                            </div>
+
+                            <div style="background: var(--slate-50); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                                <h4 style="color: var(--emerald-600); font-size: 1rem; margin-bottom: 0.5rem;">Financial Decision Simulator</h4>
+                                <p style="font-size: 0.85rem;">
+                                    Allows side-by-side comparison of a current baseline profile with a simulated hypothetical state (e.g. taking a ₹2.5L loan or missing 3 payments).
+                                </p>
+                            </div>
+
+                            <div style="background: var(--slate-50); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                                <h4 style="color: #7c3aed; font-size: 1rem; margin-bottom: 0.5rem;">Explainable Viva Breakdown</h4>
+                                <p style="font-size: 0.85rem;">
+                                    Generates step-by-step algebraic breakdowns (e.g. <code>80×30% + 90×50% + 70×20% = 83</code>) suitable for mentor evaluation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Scoring Methodology & Strategy Pattern -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">3. Scoring Methodology & Software Architecture</h3>
+                            <span class="badge badge-sim">Software Design</span>
+                        </div>
+
+                        <div style="font-size: 0.9rem; line-height: 1.7; display: flex; flex-direction: column; gap: 1rem;">
+                            <p>
+                                The software architecture decouples the scoring computation logic from the UI view layer. The calculation flow follows the <strong>Strategy Pattern</strong>:
+                            </p>
+
+                            <div style="background: var(--navy-900); color: #93c5fd; padding: 1.25rem; border-radius: var(--radius-md); font-family: 'Courier New', Courier, monospace; font-size: 0.85rem;">
+                                User Input<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Income Scoring Strategy &nbsp;&nbsp;&nbsp;&nbsp;[Range mapping: &lt;20k→40, 20k-40k→60, 40k-60k→80, ≥60k→100]<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Repayment Scoring Strategy &nbsp;[(On-time / Total) × 100]<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Debt Scoring Strategy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0-50k→100, 50k-100k→70, 100k-200k→50, &gt;200k→30]<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Weight Application &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Income × 0.30 + Repayment × 0.50 + Debt × 0.20]<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Final Score (0–100) &amp; Rating Classification (GOOD / AVERAGE / POOR)<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+                                Simulation Engine &amp; Delta Analysis
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Technologies Used -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">4. Technologies Used</h3>
+                            <span class="badge badge-edu">Full Stack Tech</span>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; font-size: 0.875rem;">
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                <strong>🍃 MongoDB (Mongoose ODM)</strong>
+                                <p style="color: var(--slate-600); font-size: 0.8rem; margin-top: 0.25rem;">NoSQL document database storing user credentials, evaluation logs, and financial profiles.</p>
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                <strong>🚀 Node.js &amp; Express.js</strong>
+                                <p style="color: var(--slate-600); font-size: 0.8rem; margin-top: 0.25rem;">REST API backend handling authentication, calculation endpoints, and database CRUD operations.</p>
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                <strong>⚡ Vanilla CSS3 &amp; HTML5</strong>
+                                <p style="color: var(--slate-600); font-size: 0.8rem; margin-top: 0.25rem;">Custom fintech design system, responsive grid/flexbox, SVG gauges, and CSS variables.</p>
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                <strong>🧠 Modular JavaScript (ES6+)</strong>
+                                <p style="color: var(--slate-600); font-size: 0.8rem; margin-top: 0.25rem;">Deterministic Strategy Pattern engine with real-time delta simulation and offline fallback.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Limitations -->
+                    <div class="card" id="limitations" style="border-left: 4px solid var(--amber-500);">
+                        <div class="card-header">
+                            <h3 class="card-title">5. Project Limitations</h3>
+                            <span class="badge badge-edu">Academic Scope</span>
+                        </div>
+
+                        <div class="alert alert-warning" style="margin-bottom: 1rem;">
+                            <strong>Academic Disclaimer:</strong> This project uses predefined educational rules and does not represent an actual credit bureau scoring methodology.
+                        </div>
+
+                        <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; color: var(--slate-700);">
+                            <li><strong>Limited Factor Set:</strong> Evaluates three primary factors (income, repayment, debt) rather than the multi-dimensional vectors used in industrial engines.</li>
+                            <li><strong>Predefined Thresholds:</strong> Uses discrete range brackets rather than continuous statistical score distributions.</li>
+                            <li><strong>No Real Bureau / Banking Data:</strong> Uses client-side demo and simulated parameters exclusively.</li>
+                            <li><strong>No Credit Decisions:</strong> Does not approve loans, extend credit lines, or offer financial advisory services.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 6: Future Scope -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">6. Future Scope & Research Roadmap</h3>
+                            <span class="badge badge-rule">Future Work</span>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; font-size: 0.875rem;">
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                🤖 <strong>Machine Learning-Based Scoring:</strong> Training Logistic Regression or XGBoost models on anonymized financial credit datasets.
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                📈 <strong>Additional Financial Factors:</strong> Incorporating employment stability, credit utilization ratios, and inquiry frequency.
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                🔐 <strong>Secure Backend Integration:</strong> Adding Node.js/Python backend with OAuth2 authentication and encrypted database storage.
+                            </div>
+                            <div style="background: var(--slate-50); padding: 1rem; border-radius: var(--radius-md);">
+                                🧠 <strong>Explainable AI (XAI):</strong> Integrating SHAP (SHapley Additive exPlanations) values to visualize feature importance for individual score decisions.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 7: Viva Demonstration Q&A Guide -->
+                    <div class="card" id="viva-guide" style="background: linear-gradient(135deg, #f8fafc, #ffffff); border: 2px solid #bfdbfe;">
+                        <div class="card-header">
+                            <h3 class="card-title">7. Viva Demonstration & Mentor Q&A Guide</h3>
+                            <span class="badge badge-edu">Viva Prep</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.9rem;">
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+                                <strong style="color: var(--navy-900);">Q1: How does the system compute the standard demo score of 83?</strong>
+                                <p style="color: var(--slate-600); margin-top: 0.25rem;">
+                                    For Income = ₹50,000 (score = 80 × 0.30 = 24), Repayment = 9/10 = 90% (score = 90 × 0.50 = 45), and Debt = ₹1,00,000 (score = 70 × 0.20 = 14). Total score = 24 + 45 + 14 = <strong>83</strong> (Rating: <strong>GOOD</strong>).
+                                </p>
+                            </div>
+
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+                                <strong style="color: var(--navy-900);">Q2: What happens in the simulation when debt increases to ₹2,50,000?</strong>
+                                <p style="color: var(--slate-600); margin-top: 0.25rem;">
+                                    The debt score falls from 70 (bracket ₹50k–₹1L) to 30 (bracket &gt;₹2L). Weighted debt contribution drops from 14 to 6 (-8 pts). Final score changes from 83 to <strong>75</strong> (Rating changes to <strong>AVERAGE</strong>).
+                                </p>
+                            </div>
+
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+                                <strong style="color: var(--navy-900);">Q3: Why is the Strategy Pattern appropriate for this design?</strong>
+                                <p style="color: var(--slate-600); margin-top: 0.25rem;">
+                                    It encapsulates the scoring algorithm for each individual factor independently. If the university mentor requests changing the income bracket or adding a fourth factor, only that specific scoring strategy is edited without altering the final score aggregator.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

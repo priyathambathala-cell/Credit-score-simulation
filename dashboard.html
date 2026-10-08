@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Credit Score Simulation Engine</title>
+    <meta name="description" content="Overview dashboard showing estimated credit score, factor breakdown, and educational rating.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script type="module">
+        import { AuthService } from './js/auth.js';
+        AuthService.requireAuth('register.html');
+    </script>
+</head>
+<body id="dashboard-app">
+
+    <!-- Mandatory Educational Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link active">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- App Topbar -->
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Simulation Overview</h1>
+                        <p>Academic Credit Score Evaluation Workspace</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="badge db-status-badge">⚪ Database Status</span>
+                    <span class="badge badge-edu">Educational Model</span>
+                    <button id="btn-reset-demo-profile" class="btn btn-outline btn-sm" title="Reset profile to baseline 83 GOOD demo">
+                        🔄 Reset Baseline (83)
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Layout Container -->
+            <main class="dashboard-layout">
+                <!-- Welcome Banner -->
+                <section class="welcome-banner">
+                    <div class="welcome-content">
+                        <div class="welcome-badge-group">
+                            <span class="badge badge-edu">Rule-Based Scoring</span>
+                            <span class="badge badge-sim">Dynamic Simulation</span>
+                        </div>
+                        <h2 class="welcome-title">Welcome, <span class="auth-user-name">Priyatham kumar</span> 👋</h2>
+                        <p class="welcome-desc">
+                            This engine evaluates creditworthiness using transparent mathematical factor weights: Income (30%), Repayment History (50%), and Existing Debt (20%).
+                        </p>
+                        <div class="action-toolbar">
+                            <a href="calculator.html" class="btn btn-primary btn-sm">
+                                🧮 Calculate Score
+                            </a>
+                            <a href="simulation.html" class="btn btn-secondary btn-sm">
+                                🔄 Simulate Decision
+                            </a>
+                            <a href="history.html" class="btn btn-outline-light btn-sm">
+                                📜 View History
+                            </a>
+                            <a href="rules.html" class="btn btn-outline-light btn-sm">
+                                📐 View Scoring Rules
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Top Metric Summary Cards -->
+                <section class="summary-grid">
+                    <!-- Card 1: Estimated Score -->
+                    <div class="summary-card highlight">
+                        <div class="summary-card-header">
+                            <span class="summary-card-label">Estimated Score</span>
+                            <div class="summary-icon-pill icon-blue">🎯</div>
+                        </div>
+                        <div class="summary-card-value">
+                            <span id="dash-score-value">83</span>
+                            <span class="unit">/ 100</span>
+                        </div>
+                        <div class="summary-card-footer">
+                            <span>Scale: 0 to 100 points</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Rating -->
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <span class="summary-card-label">Credit Rating</span>
+                            <div class="summary-icon-pill icon-emerald">⭐</div>
+                        </div>
+                        <div style="margin: 0.25rem 0;">
+                            <span id="dash-rating-value" class="rating-badge rating-good">GOOD</span>
+                        </div>
+                        <div class="summary-card-footer">
+                            <span>Project-defined educational rating</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Income Score -->
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <span class="summary-card-label">Income Score</span>
+                            <div class="summary-icon-pill icon-blue">💵</div>
+                        </div>
+                        <div class="summary-card-value">
+                            <span id="dash-income-score">80</span>
+                            <span class="unit">/ 100</span>
+                        </div>
+                        <div class="summary-card-footer">
+                            <span>Assigned Weight: <strong>30%</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Repayment Score -->
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <span class="summary-card-label">Repayment Score</span>
+                            <div class="summary-icon-pill icon-purple">⏱️</div>
+                        </div>
+                        <div class="summary-card-value">
+                            <span id="dash-repay-score">90%</span>
+                        </div>
+                        <div class="summary-card-footer">
+                            <span>Assigned Weight: <strong>50%</strong> (Highest)</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Debt Score -->
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <span class="summary-card-label">Debt Score</span>
+                            <div class="summary-icon-pill icon-amber">💳</div>
+                        </div>
+                        <div class="summary-card-value">
+                            <span id="dash-debt-score">70</span>
+                            <span class="unit">/ 100</span>
+                        </div>
+                        <div class="summary-card-footer">
+                            <span>Assigned Weight: <strong>20%</strong></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Two-Column Main Analysis Section -->
+                <section class="dashboard-main-grid">
+                    <!-- Left Column: Visual Meter & Factor Breakdown Bars -->
+                    <div class="card score-visualizer-card">
+                        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 class="card-title">Score Visualizer</h3>
+                            <span class="badge badge-edu">Live Gauge</span>
+                        </div>
+
+                        <!-- Circular Meter Gauge SVG -->
+                        <div class="score-meter-container">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg"
+                                    d="M18 2.0845
+                                      a 15.9155 15.9155 0 0 1 0 31.831
+                                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <path id="meter-fill-circle" class="circle-fill"
+                                    stroke-dasharray="83, 100"
+                                    stroke="#10b981"
+                                    d="M18 2.0845
+                                      a 15.9155 15.9155 0 0 1 0 31.831
+                                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                            </svg>
+                            <div class="score-meter-center">
+                                <div id="meter-score-num" class="meter-score-num">83</div>
+                                <div class="meter-score-max">OUT OF 100</div>
+                                <div id="meter-rating-badge" class="badge rating-badge rating-good meter-rating-badge">GOOD RATING</div>
+                            </div>
+                        </div>
+
+                        <!-- Factor Progress Bars -->
+                        <div class="factor-bars-list">
+                            <!-- Income Bar -->
+                            <div class="factor-bar-item">
+                                <div class="factor-bar-labels">
+                                    <span class="factor-name">Monthly Income (Weight 30%)</span>
+                                    <span id="bar-label-income" class="factor-raw-score">80 / 100</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div id="progress-bar-income" class="progress-fill progress-blue" style="width: 80%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Repayment Bar -->
+                            <div class="factor-bar-item">
+                                <div class="factor-bar-labels">
+                                    <span class="factor-name">Repayment Behavior (Weight 50%)</span>
+                                    <span id="bar-label-repayment" class="factor-raw-score">90% On-Time</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div id="progress-bar-repayment" class="progress-fill progress-purple" style="width: 90%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Debt Bar -->
+                            <div class="factor-bar-item">
+                                <div class="factor-bar-labels">
+                                    <span class="factor-name">Existing Debt Obligations (Weight 20%)</span>
+                                    <span id="bar-label-debt" class="factor-raw-score">70 / 100</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div id="progress-bar-debt" class="progress-fill progress-emerald" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Exact Math Breakdown Card -->
+                    <div class="card breakdown-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Your Score Breakdown</h3>
+                            <a href="rules.html" style="font-size: 0.8125rem; font-weight: 600;">View Full Rules →</a>
+                        </div>
+
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">
+                            Formula: <code>(Income × 0.30) + (Repayment × 0.50) + (Debt × 0.20)</code>
+                        </p>
+
+                        <div class="math-row-list">
+                            <!-- Income Math Row -->
+                            <div class="math-row">
+                                <div class="math-factor-info">
+                                    <span class="math-factor-title">1. Monthly Income</span>
+                                    <span class="math-factor-sub">Score mapped from income bracket</span>
+                                </div>
+                                <div id="calc-formula-income" class="math-factor-calc">
+                                    80 × 30% = 24
+                                </div>
+                            </div>
+
+                            <!-- Repayment Math Row -->
+                            <div class="math-row">
+                                <div class="math-factor-info">
+                                    <span class="math-factor-title">2. Repayment History</span>
+                                    <span class="math-factor-sub">On-Time percentage score</span>
+                                </div>
+                                <div id="calc-formula-repayment" class="math-factor-calc">
+                                    90 × 50% = 45
+                                </div>
+                            </div>
+
+                            <!-- Debt Math Row -->
+                            <div class="math-row">
+                                <div class="math-factor-info">
+                                    <span class="math-factor-title">3. Existing Debt</span>
+                                    <span class="math-factor-sub">Score mapped from debt bracket</span>
+                                </div>
+                                <div id="calc-formula-debt" class="math-factor-calc">
+                                    70 × 20% = 14
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Final Weighted Total Banner -->
+                        <div class="math-total-banner">
+                            <div>
+                                <div class="math-total-label">Final Estimated Score</div>
+                                <div style="font-size: 0.75rem; color: #1e40af;">Sum of all 3 weighted factor contributions</div>
+                            </div>
+                            <div id="calc-formula-final" class="math-total-formula">
+                                24 + 45 + 14 = 83
+                            </div>
+                        </div>
+
+                        <!-- Educational Viva Callout -->
+                        <div style="background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 0.875rem 1rem; margin-top: 1rem; font-size: 0.8rem; color: var(--slate-600);">
+                            💡 <strong>Why 50% Repayment Weight?</strong> Consistent repayment behavior is treated as the strongest indicator of credit discipline in this educational model.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Decision Simulator Quick Teaser Callout -->
+                <section class="sim-teaser-card">
+                    <div class="sim-teaser-content">
+                        <h3>🧪 Financial Decision Simulator</h3>
+                        <p>
+                            Simulate hypothetical scenarios: What if your debt increases to ₹2.5 Lakhs? What if you achieve 100% on-time repayments?
+                        </p>
+                    </div>
+                    <a href="simulation.html" class="btn btn-primary" style="flex-shrink: 0;">
+                        Open Simulator →
+                    </a>
+                </section>
+
+                <!-- Recent History Table -->
+                <section class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Score Evaluations</h3>
+                        <a href="history.html" class="btn btn-outline btn-sm">Full History Table →</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Income</th>
+                                    <th>Repayment %</th>
+                                    <th>Debt</th>
+                                    <th>Estimated Score</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dash-recent-history-body">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

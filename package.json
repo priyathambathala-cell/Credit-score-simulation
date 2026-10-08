@@ -1,0 +1,27 @@
+{
+  "name": "credit-score-simulation-engine",
+  "version": "1.0.0",
+  "description": "Educational Credit Score Simulation Engine with Node.js, Express, and MongoDB backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "credit-score",
+    "simulation",
+    "mongodb",
+    "express",
+    "educational",
+    "btech-project"
+  ],
+  "author": "Priyatham kumar",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  }
+}

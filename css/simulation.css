@@ -1,0 +1,383 @@
+/* ==========================================================================
+   CREDIT SCORE SIMULATION ENGINE - SIMULATION STYLESHEET
+   Vibrant, Comparative & Dynamic Decision Simulator
+   ========================================================================== */
+
+.sim-layout {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Preset Scenario Quick-Pick Bar
+   -------------------------------------------------------------------------- */
+.scenario-preset-bar {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.scenario-preset-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.scenario-preset-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--navy-900);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scenario-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-scenario {
+  background: #f8faff;
+  border: 1.5px solid #e2e8f5;
+  color: var(--slate-700);
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.btn-scenario:hover {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+  border-color: var(--primary-light);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.btn-scenario:active {
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   Dual Comparison Grid
+   -------------------------------------------------------------------------- */
+.dual-sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.85rem;
+  align-items: stretch;
+}
+
+/* Profile Panels */
+.sim-profile-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.sim-profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--slate-300);
+}
+
+.sim-profile-card.simulated {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 10px 30px -5px rgba(99, 102, 241, 0.15);
+}
+
+.sim-profile-card.simulated::before {
+  background: var(--gradient-primary);
+}
+
+.sim-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sim-panel-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--navy-900);
+}
+
+.sim-score-box {
+  background: linear-gradient(135deg, #f8faff 0%, #f1f5f9 100%);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.sim-profile-card.simulated .sim-score-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+  border-color: #c7d2fe;
+}
+
+.sim-score-value {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: var(--navy-900);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.sim-profile-card.simulated .sim-score-value {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sim-score-value span {
+  font-size: 1.05rem;
+  color: var(--slate-400);
+  font-weight: 600;
+}
+
+.sim-param-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.sim-param-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--slate-200);
+}
+
+.sim-param-label {
+  color: var(--slate-600);
+  font-weight: 600;
+}
+
+.sim-param-val {
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+/* --------------------------------------------------------------------------
+   Delta Comparison Summary Card
+   -------------------------------------------------------------------------- */
+.delta-impact-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.delta-impact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-emerald);
+}
+
+.delta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.delta-score-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #f8faff 0%, #f1f5f9 100%);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.delta-stat-block {
+  text-align: center;
+}
+
+.delta-stat-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.delta-stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--navy-900);
+  letter-spacing: -0.02em;
+}
+
+.delta-pill-big {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-full);
+  letter-spacing: -0.02em;
+  box-shadow: var(--shadow-md);
+}
+
+.delta-positive {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  color: #047857;
+  border: 2px solid #34d399;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+.delta-negative {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+  color: #be123c;
+  border: 2px solid #fb7185;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.25);
+}
+
+.delta-neutral {
+  background: #f1f5f9;
+  color: var(--slate-600);
+  border: 2px solid var(--slate-300);
+}
+
+/* --------------------------------------------------------------------------
+   Factor Comparison Bars Grid
+   -------------------------------------------------------------------------- */
+.comparison-bars-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.45rem;
+  margin-top: 1.75rem;
+}
+
+.comp-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.comp-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--slate-700);
+}
+
+.comp-dual-track {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--slate-500);
+}
+
+.bar-label {
+  width: 75px;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 9px;
+  background: #edf2f9;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bar-fill-current {
+  height: 100%;
+  background: #94a3b8;
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-fill-simulated {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+@media (max-width: 960px) {
+  .dual-sim-grid {
+    grid-template-columns: 1fr;
+  }
+  .delta-score-hero {
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sim-layout {
+    padding: 1rem;
+  }
+}

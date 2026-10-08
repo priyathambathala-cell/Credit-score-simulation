@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | Credit Score Simulation Engine</title>
+    <meta name="description" content="Manage your educational profile and simulation workspace preferences.">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module">
+        import { AuthService } from './js/auth.js';
+        AuthService.requireAuth('register.html');
+    </script>
+</head>
+<body>
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link active">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Student Profile & Environment</h1>
+                        <p>Academic session management and local simulation workspace</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="badge db-status-badge">⚪ Database Status</span>
+                    <span class="badge badge-edu">Demo Session</span>
+                </div>
+            </header>
+
+            <main class="page-container">
+                <div class="container" style="max-width: 900px; display: flex; flex-direction: column; gap: 1.75rem;">
+                    
+                    <!-- Profile Card -->
+                    <div class="card" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                        <div class="user-avatar" style="width: 5rem; height: 5rem; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--blue-600), #7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800;">
+                            PK
+                        </div>
+                        <div style="flex: 1; min-width: 240px;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+                                <h2 class="auth-user-name" style="font-size: 1.4rem;">Priyatham kumar</h2>
+                                <span class="badge badge-edu">B.Tech Student</span>
+                            </div>
+                            <p class="auth-user-email" style="font-size: 0.875rem; color: var(--slate-500); margin-bottom: 0.5rem;">demo@college.edu</p>
+                            <div style="font-size: 0.775rem; color: var(--slate-600);">
+                                Storage Mode: <strong>Client LocalStorage</strong> | Session: <strong>Educational Demo Active</strong>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="btn-sync-demo-account" class="btn btn-outline btn-sm">
+                                🔄 Reload Demo Student
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Edit Student Details Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">✏️ Edit Student Details</h3>
+                            <span class="badge badge-edu">Customizable Profile</span>
+                        </div>
+
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                            If your student name, email, or academic role is incorrect, you can update your details below. Changes will sync with your MongoDB Atlas database and local session.
+                        </p>
+
+                        <!-- Error Box -->
+                        <div id="profile-edit-error" class="alert alert-danger" style="display: none;"></div>
+
+                        <form id="form-edit-student-profile">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="edit-student-name">Full Name</label>
+                                    <input type="text" id="edit-student-name" class="form-control" placeholder="e.g. Priyatham kumar" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="edit-student-email">College / Contact Email</label>
+                                    <input type="email" id="edit-student-email" class="form-control" placeholder="e.g. demo@college.edu" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="edit-student-role">Academic Role / Course</label>
+                                    <input type="text" id="edit-student-role" class="form-control" placeholder="e.g. 2nd Year B.Tech CSE">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="edit-student-password">Update Password <span class="helper">(Optional)</span></label>
+                                    <input type="password" id="edit-student-password" class="form-control" placeholder="Leave empty to keep current">
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 0.875rem; flex-wrap: wrap;">
+                                <button type="submit" class="btn btn-primary">
+                                    💾 Save Profile Changes
+                                </button>
+                                <button type="button" id="btn-cancel-edit-profile" class="btn btn-outline">
+                                    ↺ Reset to Current
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Environment Settings Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Simulation Workspace Actions</h3>
+                            <span class="badge badge-rule">System Management</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                            <!-- Action 1: Reset Baseline -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <strong style="color: var(--navy-900);">Reset to Baseline Demo Profile</strong>
+                                    <p style="font-size: 0.8rem; color: var(--slate-600);">Restores standard demo inputs (₹50k income, 9/10 repayments, ₹1L debt) yielding score 83 (GOOD).</p>
+                                </div>
+                                <button id="btn-reset-baseline-profile" class="btn btn-primary btn-sm">
+                                    Reset Baseline (83)
+                                </button>
+                            </div>
+
+                            <!-- Action 2: Clear History -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <strong style="color: var(--navy-900);">Clear Score Simulation History</strong>
+                                    <p style="font-size: 0.8rem; color: var(--slate-600);">Deletes all logged calculation and simulation entries from localStorage.</p>
+                                </div>
+                                <button id="btn-clear-all-data" class="btn btn-danger-outline btn-sm">
+                                    Clear History Logs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Metadata & Credits -->
+                    <div class="card" style="background: linear-gradient(135deg, #f8fafc, #ffffff);">
+                        <h4 style="font-size: 1rem; color: var(--navy-900); margin-bottom: 0.75rem;">Academic Project Metadata</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.875rem; font-size: 0.8125rem;">
+                            <div><strong>Project Title:</strong> Credit Score Simulation Engine</div>
+                            <div><strong>Course Level:</strong> 2nd-Year B.Tech CSE / IT</div>
+                            <div><strong>Model:</strong> Deterministic Rule Engine</div>
+                            <div><strong>Primary Weight:</strong> Repayment History (50%)</div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module">
+        import { StorageService } from './js/storage.js';
+        import { AuthService } from './js/auth.js';
+        import { evaluateCreditProfile, DEMO_FINANCIAL_PROFILE } from './js/scoring-engine.js';
+        import { UI } from './js/main.js';
+
+        const nameInput = document.getElementById('edit-student-name');
+        const emailInput = document.getElementById('edit-student-email');
+        const roleInput = document.getElementById('edit-student-role');
+        const passInput = document.getElementById('edit-student-password');
+        const errorBox = document.getElementById('profile-edit-error');
+        const editForm = document.getElementById('form-edit-student-profile');
+
+        function populateForm() {
+            const user = AuthService.getUser();
+            if (nameInput) nameInput.value = user.fullName || 'Priyatham kumar';
+            if (emailInput) emailInput.value = user.email || 'demo@college.edu';
+            if (roleInput) roleInput.value = user.role || '2nd Year B.Tech Student';
+            if (passInput) passInput.value = '';
+            if (errorBox) errorBox.style.display = 'none';
+        }
+
+        // Initialize form fields
+        populateForm();
+
+        // Form Submit: Save edited details
+        editForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fullName = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const role = roleInput.value.trim();
+            const password = passInput.value.trim();
+
+            const res = await AuthService.updateProfile(fullName, email, role, password);
+
+            if (res.success) {
+                if (errorBox) errorBox.style.display = 'none';
+                populateForm();
+                UI.showToast(`Student details updated to ${res.user.fullName}!`, 'success');
+            } else {
+                if (errorBox) {
+                    errorBox.innerHTML = `<span>⚠️</span> <span>${res.errors.join('<br>')}</span>`;
+                    errorBox.style.display = 'flex';
+                }
+            }
+        });
+
+        // Cancel / Reset Button
+        document.getElementById('btn-cancel-edit-profile')?.addEventListener('click', () => {
+            populateForm();
+            UI.showToast('Form reset to current student details.', 'info');
+        });
+
+        document.getElementById('btn-sync-demo-account')?.addEventListener('click', () => {
+            AuthService.loginDemo();
+            populateForm();
+            UI.showToast('Demo Student account refreshed!', 'success');
+            AuthService.syncAuthUI();
+        });
+
+        document.getElementById('btn-reset-baseline-profile')?.addEventListener('click', () => {
+            const demoResult = evaluateCreditProfile(DEMO_FINANCIAL_PROFILE);
+            demoResult.source = 'Demo Reset';
+            StorageService.saveCurrentProfile(demoResult);
+            UI.showToast('Reset active profile to baseline 83 GOOD!', 'success');
+        });
+
+        document.getElementById('btn-clear-all-data')?.addEventListener('click', () => {
+            if (confirm('Clear all score simulation history logs?')) {
+                StorageService.clearAllHistory();
+                UI.showToast('Score history logs wiped.', 'info');
+            }
+        });
+    </script>
+</body>
+</html>

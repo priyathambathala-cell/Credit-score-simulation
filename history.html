@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score History | Credit Score Simulation Engine</title>
+    <meta name="description" content="View past calculations, simulation logs, and score changes.">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module">
+        import { AuthService } from './js/auth.js';
+        AuthService.requireAuth('register.html');
+    </script>
+</head>
+<body id="history-app">
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link active">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Score Simulation History</h1>
+                        <p>Logged calculations and simulation experiments saved in localStorage</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="badge db-status-badge">⚪ Database Status</span>
+                    <button id="btn-export-csv" class="btn btn-outline btn-sm">
+                        📥 Export CSV
+                    </button>
+                    <button id="btn-clear-history" class="btn btn-danger-outline btn-sm">
+                        🗑️ Clear All
+                    </button>
+                </div>
+            </header>
+
+            <main class="page-container">
+                <div class="container" style="max-width: 100%;">
+                    
+                    <!-- Filter Toolbar -->
+                    <div class="card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900);">Total Logged:</span>
+                            <span id="history-total-count" class="badge badge-edu">0 entries</span>
+                        </div>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.875rem; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem;">
+                                <label for="history-filter-rating" style="font-weight: 600; color: var(--slate-600);">Rating:</label>
+                                <select id="history-filter-rating" class="form-control" style="width: auto; padding: 0.35rem 0.75rem; font-size: 0.8125rem;">
+                                    <option value="ALL">All Ratings</option>
+                                    <option value="GOOD">GOOD (80–100)</option>
+                                    <option value="AVERAGE">AVERAGE (60–79)</option>
+                                    <option value="POOR">POOR (&lt;60)</option>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem;">
+                                <label for="history-filter-type" style="font-weight: 600; color: var(--slate-600);">Type:</label>
+                                <select id="history-filter-type" class="form-control" style="width: auto; padding: 0.35rem 0.75rem; font-size: 0.8125rem;">
+                                    <option value="ALL">All Entries</option>
+                                    <option value="Manual Calculation">Calculations</option>
+                                    <option value="Simulation">Simulations</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Table Card -->
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Type</th>
+                                        <th>Monthly Income</th>
+                                        <th>Repayment Ratio</th>
+                                        <th>Existing Debt</th>
+                                        <th>Score</th>
+                                        <th>Rating</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="history-empty-state" style="display: none; padding: 3.5rem 1.5rem; text-align: center; color: var(--slate-500);">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">📜</div>
+                            <h3 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 0.25rem;">No History Records Found</h3>
+                            <p style="font-size: 0.875rem; max-width: 320px; margin: 0 auto 1.25rem;">
+                                Try calculating a score or running a simulation to log new evaluation records.
+                            </p>
+                            <a href="calculator.html" class="btn btn-primary btn-sm">Calculate a Score</a>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Record Detail View Modal -->
+    <div id="history-detail-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 style="font-size: 1.1rem; color: var(--navy-900);">Evaluation Details</h3>
+                <button data-modal-close style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--slate-400);">✕</button>
+            </div>
+            <div id="history-modal-body" class="modal-body">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button data-modal-close class="btn btn-outline btn-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/history.js"></script>
+</body>
+</html>

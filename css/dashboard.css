@@ -1,0 +1,581 @@
+/* ==========================================================================
+   CREDIT SCORE SIMULATION ENGINE - DASHBOARD STYLESHEET
+   Vibrant, Dynamic & Engaging Analytics Layout
+   ========================================================================== */
+
+.dashboard-layout {
+  padding: 1.75rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   Welcome Hero Banner (Cosmic Vibrant Aura)
+   -------------------------------------------------------------------------- */
+.welcome-banner {
+  background: linear-gradient(135deg, #0c1021 0%, #151b33 50%, #17203d 100%);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2.5rem;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 35px -5px rgba(12, 16, 33, 0.4), 0 0 30px rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.welcome-banner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(236, 72, 153, 0.2) 50%, rgba(12, 16, 33, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.welcome-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: 20%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, rgba(16, 185, 129, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(25px);
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.welcome-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.welcome-title {
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+.welcome-title span {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-desc {
+  color: #c7d2fe;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+/* Quick Action Bar */
+.action-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Top Summary Cards Grid
+   -------------------------------------------------------------------------- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.35rem;
+}
+
+.summary-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--slate-200);
+  transition: var(--transition);
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.summary-card:hover::before {
+  height: 5px;
+}
+
+/* Specific vibrant card styles */
+.summary-card:nth-child(1)::before {
+  background: var(--gradient-primary);
+}
+.summary-card:nth-child(1):hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(99, 102, 241, 0.2);
+}
+
+.summary-card:nth-child(2)::before {
+  background: var(--gradient-emerald);
+}
+.summary-card:nth-child(2):hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.2);
+}
+
+.summary-card:nth-child(3)::before {
+  background: var(--gradient-cyan);
+}
+.summary-card:nth-child(3):hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(6, 182, 212, 0.2);
+}
+
+.summary-card:nth-child(4)::before {
+  background: var(--gradient-emerald);
+}
+.summary-card:nth-child(4):hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.2);
+}
+
+.summary-card:nth-child(5)::before {
+  background: var(--gradient-sunset);
+}
+.summary-card:nth-child(5):hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.2);
+}
+
+.summary-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.summary-card-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-500);
+}
+
+.summary-icon-pill {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.summary-card:hover .summary-icon-pill {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.icon-blue { 
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.2)); 
+  color: var(--primary); 
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.icon-emerald { 
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.2)); 
+  color: var(--emerald-600); 
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.icon-purple { 
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.2)); 
+  color: var(--purple-600); 
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.icon-amber { 
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(244, 63, 94, 0.2)); 
+  color: var(--amber-600); 
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.summary-card-value {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--navy-900);
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  letter-spacing: -0.02em;
+}
+
+.summary-card-value .unit {
+  font-size: 1rem;
+  color: var(--slate-400);
+  font-weight: 600;
+}
+
+.summary-card-footer {
+  margin-top: 0.85rem;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--slate-500);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Main Dashboard 2-Column Section
+   -------------------------------------------------------------------------- */
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.6rem;
+}
+
+/* Score Visualizer Card */
+.score-visualizer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.25rem 2rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.score-visualizer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.score-meter-container {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  margin: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-chart {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 14px rgba(99, 102, 241, 0.2));
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #e2e8f5;
+  stroke-width: 3.2;
+}
+
+.circle-fill {
+  fill: none;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1.2s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+}
+
+.score-meter-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.meter-score-num {
+  font-family: var(--font-heading);
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: var(--navy-900);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.meter-score-max {
+  font-size: 0.9rem;
+  color: var(--slate-400);
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.meter-rating-badge {
+  margin-top: 0.6rem;
+}
+
+/* Factor Progress Bars */
+.factor-bars-list {
+  width: 100%;
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.factor-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.factor-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.factor-name {
+  color: var(--slate-700);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.factor-raw-score {
+  color: var(--navy-900);
+  font-weight: 800;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: #edf2f9;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.progress-blue { 
+  background: var(--gradient-cyan); 
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.progress-purple { 
+  background: var(--gradient-primary); 
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+}
+
+.progress-emerald { 
+  background: var(--gradient-emerald); 
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Score Breakdown Math Table & Formula Card
+   -------------------------------------------------------------------------- */
+.breakdown-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.math-row-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  margin: 1.25rem 0;
+}
+
+.math-row {
+  background: linear-gradient(135deg, #f8faff 0%, #f1f5f9 100%);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: var(--transition);
+}
+
+.math-row:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+  transform: translateX(3px);
+}
+
+.math-factor-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.math-factor-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--navy-900);
+}
+
+.math-factor-sub {
+  font-size: 0.775rem;
+  color: var(--slate-500);
+  font-weight: 500;
+}
+
+.math-factor-calc {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: var(--white);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #dbeafe;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.08);
+}
+
+.math-total-banner {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 50%, #f5f3ff 100%);
+  border: 1.5px solid #c7d2fe;
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+}
+
+.math-total-label {
+  font-weight: 800;
+  color: #1e1b4b;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.math-total-formula {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--primary-dark);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   Simulation Teaser Card
+   -------------------------------------------------------------------------- */
+.sim-teaser-card {
+  background: linear-gradient(135deg, #ffffff 0%, #ecfeff 50%, #eff6ff 100%);
+  border: 1.5px solid #a5f3fc;
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.sim-teaser-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+  color: var(--navy-900);
+}
+
+.sim-teaser-content p {
+  font-size: 0.9rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .dashboard-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-layout {
+    padding: 1rem;
+  }
+  .welcome-banner {
+    padding: 1.5rem;
+  }
+  .welcome-title {
+    font-size: 1.6rem;
+  }
+  .math-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .math-factor-calc {
+    width: 100%;
+    text-align: right;
+  }
+  .math-total-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .sim-teaser-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

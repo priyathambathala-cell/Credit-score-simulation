@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoring Rules & Weightages | Credit Score Simulation Engine</title>
+    <meta name="description" content="Transparent scoring rules, parameter weightages, and mathematical formulas used in the Credit Score Simulation Engine.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link active">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Scoring Rules & Weightages</h1>
+                        <p>Mathematical definitions and boundary conditions for educational evaluation</p>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="calculator.html" class="btn btn-primary btn-sm">
+                        🧮 Test in Calculator
+                    </a>
+                </div>
+            </header>
+
+            <main class="page-container">
+                <div class="container" style="max-width: 1050px; display: flex; flex-direction: column; gap: 2rem;">
+                    
+                    <!-- Overview Banner -->
+                    <div class="card" style="background: linear-gradient(135deg, #eff6ff, #ffffff); border-left: 4px solid var(--blue-600);">
+                        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--navy-900);">Core Scoring Equation</h2>
+                        <div style="background: var(--white); border: 1px solid #bfdbfe; border-radius: var(--radius-md); padding: 1rem 1.25rem; font-family: 'Courier New', Courier, monospace; font-size: 1.05rem; font-weight: 700; color: #1e40af; margin: 0.75rem 0;">
+                            Final Estimated Score = (Income Score × 0.30) + (Repayment Score × 0.50) + (Debt Score × 0.20)
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--slate-600);">
+                            The engine normalizes all factor outputs into a bounded 0–100 numerical score, which is then mapped to a project-defined credit rating.
+                        </p>
+                    </div>
+
+                    <!-- Weight Rationale Callout -->
+                    <div class="alert alert-info">
+                        <span style="font-size: 1.25rem;">💡</span>
+                        <div>
+                            <strong>Why is Repayment History weighted highest at 50%?</strong><br>
+                            Repayment history receives the highest weight because consistent repayment behavior is treated as the strongest factor in this educational model. A borrower's track record of honoring past obligations is historically the most critical indicator of future credit discipline.
+                        </div>
+                    </div>
+
+                    <!-- Rule 1: Income Score Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">1. Monthly Income Scoring Strategy</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-muted);">Assigned Weight: <strong>30% (0.30)</strong></p>
+                            </div>
+                            <span class="badge badge-edu">Factor 1</span>
+                        </div>
+
+                        <p style="font-size: 0.875rem; margin-bottom: 1rem;">
+                            Income represents earning capacity and cash flow availability. Higher earnings provide stronger buffer for servicing debt.
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Monthly Income Bracket</th>
+                                        <th>Factor Score (out of 100)</th>
+                                        <th>Factor Weight</th>
+                                        <th>Weighted Point Contribution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Below ₹20,000</td>
+                                        <td><strong style="color: var(--navy-900);">40</strong></td>
+                                        <td>30%</td>
+                                        <td>40 × 0.30 = <strong>12.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>₹20,000 – ₹39,999</td>
+                                        <td><strong style="color: var(--navy-900);">60</strong></td>
+                                        <td>30%</td>
+                                        <td>60 × 0.30 = <strong>18.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>₹40,000 – ₹59,999 <span class="badge badge-edu" style="font-size:0.65rem;">Demo: ₹50,000</span></td>
+                                        <td><strong style="color: var(--navy-900);">80</strong></td>
+                                        <td>30%</td>
+                                        <td>80 × 0.30 = <strong>24.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>₹60,000 and above</td>
+                                        <td><strong style="color: var(--emerald-600);">100</strong></td>
+                                        <td>30%</td>
+                                        <td>100 × 0.30 = <strong>30.0 pts (Max)</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Rule 2: Repayment Score -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">2. Repayment Performance Strategy</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-muted);">Assigned Weight: <strong>50% (0.50) — Dominant Weight</strong></p>
+                            </div>
+                            <span class="badge badge-rule">Factor 2</span>
+                        </div>
+
+                        <p style="font-size: 0.875rem; margin-bottom: 1rem;">
+                            Calculated dynamically as the percentage of on-time installments made against total installment records.
+                        </p>
+
+                        <div style="background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.125rem; margin-bottom: 1.25rem;">
+                            <div style="font-weight: 700; color: var(--navy-900); font-size: 0.9rem; margin-bottom: 0.25rem;">Repayment Score Formula:</div>
+                            <div style="font-family: 'Courier New', monospace; font-weight: 700; color: #1e40af; font-size: 1rem;">
+                                Repayment Percentage = (On-Time Repayments / Total Repayments) × 100
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 0.35rem;">
+                                The resulting percentage value directly serves as the factor score (0–100).
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Example Scenario</th>
+                                        <th>On-Time / Total</th>
+                                        <th>Repayment Score</th>
+                                        <th>Weighted Points (50%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Standard Demo Profile</td>
+                                        <td>9 / 10 records</td>
+                                        <td><strong>90%</strong></td>
+                                        <td>90 × 0.50 = <strong>45.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Perfect Track Record</td>
+                                        <td>10 / 10 records</td>
+                                        <td><strong style="color: var(--emerald-600);">100%</strong></td>
+                                        <td>100 × 0.50 = <strong>50.0 pts (Max)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Moderate Delinquency</td>
+                                        <td>7 / 10 records</td>
+                                        <td><strong>70%</strong></td>
+                                        <td>70 × 0.50 = <strong>35.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>High Delinquency</td>
+                                        <td>4 / 10 records</td>
+                                        <td><strong style="color: var(--rose-600);">40%</strong></td>
+                                        <td>40 × 0.50 = <strong>20.0 pts</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Rule 3: Existing Debt Score Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">3. Existing Debt Obligations Strategy</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-muted);">Assigned Weight: <strong>20% (0.20)</strong></p>
+                            </div>
+                            <span class="badge badge-sim">Factor 3</span>
+                        </div>
+
+                        <p style="font-size: 0.875rem; margin-bottom: 1rem;">
+                            Existing debt measures leverage risk. Higher debt reduces disposable income for servicing new credit.
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Existing Debt Range</th>
+                                        <th>Factor Score (out of 100)</th>
+                                        <th>Factor Weight</th>
+                                        <th>Weighted Point Contribution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>₹0 – ₹50,000</td>
+                                        <td><strong style="color: var(--emerald-600);">100</strong></td>
+                                        <td>20%</td>
+                                        <td>100 × 0.20 = <strong>20.0 pts (Max)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>₹50,001 – ₹1,00,000 <span class="badge badge-edu" style="font-size:0.65rem;">Demo: ₹1,00,000</span></td>
+                                        <td><strong style="color: var(--navy-900);">70</strong></td>
+                                        <td>20%</td>
+                                        <td>70 × 0.20 = <strong>14.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>₹1,00,001 – ₹2,00,000</td>
+                                        <td><strong style="color: var(--navy-900);">50</strong></td>
+                                        <td>20%</td>
+                                        <td>50 × 0.20 = <strong>10.0 pts</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above ₹2,00,000 <span class="badge badge-sim" style="font-size:0.65rem;">Sim Example: ₹2.5L</span></td>
+                                        <td><strong style="color: var(--rose-600);">30</strong></td>
+                                        <td>20%</td>
+                                        <td>30 × 0.20 = <strong>6.0 pts</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Rating Classification -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Educational Rating Classification</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-muted);">Project-defined educational rating scale</p>
+                            </div>
+                            <span class="badge badge-edu">Rating System</span>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Score Range</th>
+                                        <th>Educational Rating</th>
+                                        <th>Visual Badge</th>
+                                        <th>Academic Meaning</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>80 – 100</strong></td>
+                                        <td><strong style="color: var(--emerald-600);">GOOD</strong></td>
+                                        <td><span class="rating-badge rating-good">GOOD</span></td>
+                                        <td>Favorable simulated credit profile with strong repayment and balanced debt.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>60 – 79.99</strong></td>
+                                        <td><strong style="color: var(--amber-600);">AVERAGE</strong></td>
+                                        <td><span class="rating-badge rating-average">AVERAGE</span></td>
+                                        <td>Moderate profile; minor missed payments or higher debt leverage observed.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Below 60</strong></td>
+                                        <td><strong style="color: var(--rose-600);">POOR</strong></td>
+                                        <td><span class="rating-badge rating-poor">POOR</span></td>
+                                        <td>High risk in educational model due to low income, missed payments, or excessive debt.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="font-size: 0.775rem; color: var(--slate-500); margin-top: 1rem;">
+                            * Clearly labeled as a <strong>Project-defined educational rating</strong>. Does not represent official CIBIL/Experian ratings.
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Decision Simulator | Credit Score Simulation Engine</title>
+    <meta name="description" content="Simulate financial changes and observe real-time estimated credit score deltas.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/simulation.css">
+</head>
+<body id="simulation-app">
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link active">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Financial Decision Simulator</h1>
+                        <p>Change financial conditions and see how the estimated score may change</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="badge db-status-badge">⚪ Database Status</span>
+                    <button id="btn-load-sim-example" class="btn btn-outline btn-sm">
+                        🧪 Load Debt Example (₹2.5L)
+                    </button>
+                    <button id="btn-save-simulation" class="btn btn-primary btn-sm">
+                        💾 Save Simulation
+                    </button>
+                </div>
+            </header>
+
+            <main class="sim-layout">
+                
+                <!-- Quick Scenario Presets Bar -->
+                <section class="scenario-preset-bar">
+                    <div class="scenario-preset-title">
+                        <span>⚡</span>
+                        <span>Quick Scenario Presets (Viva Demonstration):</span>
+                    </div>
+                    <div class="scenario-buttons">
+                        <button class="btn-scenario" data-scenario="debt_increase">
+                            📉 Take New Loan (Debt → ₹2,50,000)
+                        </button>
+                        <button class="btn-scenario" data-scenario="perfect_repay">
+                            📈 Perfect Repayments (10/10 On-Time)
+                        </button>
+                        <button class="btn-scenario" data-scenario="income_promotion">
+                            💼 Salary Hike (Income → ₹70,000)
+                        </button>
+                        <button class="btn-scenario" data-scenario="missed_payments">
+                            ⚠️ Miss 3 Payments (7/10 On-Time)
+                        </button>
+                        <button class="btn-scenario" data-scenario="debt_clearance">
+                            🎉 Pay Off Debt (Debt → ₹25,000)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Dual Panels: Current Profile vs Simulated Profile -->
+                <div class="dual-sim-grid">
+                    
+                    <!-- Panel 1: Current Profile (Read-Only) -->
+                    <div class="sim-profile-card">
+                        <div>
+                            <div class="sim-panel-header">
+                                <h3 class="sim-panel-title">
+                                    <span>👤</span>
+                                    <span>CURRENT PROFILE</span>
+                                </h3>
+                                <span class="badge badge-edu">Baseline</span>
+                            </div>
+
+                            <div class="sim-score-box">
+                                <div>
+                                    <div style="font-size: 0.75rem; color: var(--slate-500); font-weight: 700; text-transform: uppercase;">Current Score</div>
+                                    <div class="sim-score-value">
+                                        <span id="sim-cur-score">83</span>
+                                        <span>/ 100</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span id="sim-cur-rating" class="rating-badge rating-good">GOOD</span>
+                                </div>
+                            </div>
+
+                            <div class="sim-param-list">
+                                <div class="sim-param-row">
+                                    <span class="sim-param-label">Monthly Income:</span>
+                                    <span id="sim-cur-income" class="sim-param-val">₹50,000</span>
+                                </div>
+                                <div class="sim-param-row">
+                                    <span class="sim-param-label">Repayment Performance:</span>
+                                    <span id="sim-cur-repay" class="sim-param-val">90% (9/10 records)</span>
+                                </div>
+                                <div class="sim-param-row">
+                                    <span class="sim-param-label">Existing Debt:</span>
+                                    <span id="sim-cur-debt" class="sim-param-val">₹1,00,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 0.875rem; margin-top: 1.5rem; font-size: 0.8rem; color: var(--slate-600);">
+                            ℹ️ Current baseline is synchronized with your last calculated score or demo profile.
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Simulated Profile (Interactive Inputs) -->
+                    <div class="sim-profile-card simulated">
+                        <div>
+                            <div class="sim-panel-header">
+                                <h3 class="sim-panel-title" style="color: var(--blue-600);">
+                                    <span>🧪</span>
+                                    <span>SIMULATED PROFILE</span>
+                                </h3>
+                                <span class="badge badge-sim">Hypothetical</span>
+                            </div>
+
+                            <div class="sim-score-box" style="background: #eff6ff; border-color: #bfdbfe;">
+                                <div>
+                                    <div style="font-size: 0.75rem; color: #1e40af; font-weight: 700; text-transform: uppercase;">Simulated Score</div>
+                                    <div class="sim-score-value" style="color: #1d4ed8;">
+                                        <span id="sim-new-score">75</span>
+                                        <span>/ 100</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span id="sim-new-rating" class="rating-badge rating-average">AVERAGE</span>
+                                </div>
+                            </div>
+
+                            <!-- Simulation Input Form -->
+                            <div style="display: flex; flex-direction: column; gap: 0.875rem;">
+                                <div>
+                                    <label class="form-label" style="font-size: 0.8125rem;">New Monthly Income (₹)</label>
+                                    <input type="number" id="sim-input-income" class="form-control" placeholder="50000" min="0" step="500">
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.8125rem;">New Total Records</label>
+                                        <input type="number" id="sim-input-total-repay" class="form-control" placeholder="10" min="1">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.8125rem;">New On-Time</label>
+                                        <input type="number" id="sim-input-ontime-repay" class="form-control" placeholder="9" min="0">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="form-label" style="font-size: 0.8125rem;">New Existing Debt (₹)</label>
+                                    <input type="number" id="sim-input-debt" class="form-control" placeholder="100000" min="0" step="1000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                            <button id="btn-run-simulation" class="btn btn-primary btn-block">
+                                🔄 Run Simulation
+                            </button>
+                            <button id="btn-reset-simulation" class="btn btn-outline" title="Reset to match current profile">
+                                ↺ Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Delta & Impact Analysis Summary Card -->
+                <section class="delta-impact-card">
+                    <div class="delta-header">
+                        <div>
+                            <h3 style="font-size: 1.25rem;">Score Comparison & Impact Analysis</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-muted);">Side-by-side delta variations between Current and Simulated states</p>
+                        </div>
+                        <span class="badge badge-rule">Delta Tracking</span>
+                    </div>
+
+                    <!-- Delta Stat Hero -->
+                    <div class="delta-score-hero">
+                        <div class="delta-stat-block">
+                            <div class="delta-stat-label">Current Score</div>
+                            <div class="delta-stat-number" id="delta-stat-current">83</div>
+                        </div>
+
+                        <div class="delta-stat-block">
+                            <div class="delta-stat-label">Score Change</div>
+                            <div>
+                                <span id="sim-delta-pill" class="delta-pill-big delta-negative">
+                                    <span>↓</span> <span>-8 pts</span>
+                                </span>
+                            </div>
+                            <div id="sim-delta-text" style="font-size: 0.8125rem; color: var(--slate-600); margin-top: 0.35rem;">
+                                Estimated score decreases by 8 points.
+                            </div>
+                        </div>
+
+                        <div class="delta-stat-block">
+                            <div class="delta-stat-label">Simulated Score</div>
+                            <div class="delta-stat-number" id="delta-stat-simulated" style="color: var(--blue-600);">75</div>
+                        </div>
+                    </div>
+
+                    <!-- Factor Changes Breakdown Table -->
+                    <div style="background: var(--slate-50); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 0.9375rem; margin-bottom: 0.75rem; color: var(--navy-900);">Factor-Level Impact Breakdown</h4>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <!-- Income Delta -->
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.875rem;">
+                                <div style="font-size: 0.75rem; color: var(--slate-500); font-weight: 600;">INCOME FACTOR (30%)</div>
+                                <div id="sim-delta-income" style="margin-top: 0.35rem;">
+                                    <span style="font-weight: 700; color: var(--slate-600);">↔ 0 pts</span>
+                                </div>
+                            </div>
+
+                            <!-- Repayment Delta -->
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.875rem;">
+                                <div style="font-size: 0.75rem; color: var(--slate-500); font-weight: 600;">REPAYMENT FACTOR (50%)</div>
+                                <div id="sim-delta-repay" style="margin-top: 0.35rem;">
+                                    <span style="font-weight: 700; color: var(--slate-600);">↔ 0%</span>
+                                </div>
+                            </div>
+
+                            <!-- Debt Delta -->
+                            <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.875rem;">
+                                <div style="font-size: 0.75rem; color: var(--slate-500); font-weight: 600;">DEBT FACTOR (20%)</div>
+                                <div id="sim-delta-debt" style="margin-top: 0.35rem;">
+                                    <span style="font-weight: 700; color: var(--rose-600);">↓ -40 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Comparison Bars -->
+                    <h4 style="font-size: 0.9375rem; margin-bottom: 0.75rem; color: var(--navy-900);">Visual Factor Comparison</h4>
+                    <div class="comparison-bars-container">
+                        
+                        <!-- Income Comparison -->
+                        <div class="comp-bar-group">
+                            <div class="comp-bar-meta">
+                                <span>Monthly Income Contribution</span>
+                                <span style="font-size: 0.75rem; color: var(--slate-500);">Weight: 30%</span>
+                            </div>
+                            <div class="comp-dual-track">
+                                <div class="bar-row">
+                                    <span class="bar-label">Current:</span>
+                                    <div class="bar-track"><div id="sim-bar-cur-income" class="bar-fill-current" style="width: 80%;"></div></div>
+                                </div>
+                                <div class="bar-row">
+                                    <span class="bar-label">Simulated:</span>
+                                    <div class="bar-track"><div id="sim-bar-sim-income" class="bar-fill-simulated" style="width: 80%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repayment Comparison -->
+                        <div class="comp-bar-group">
+                            <div class="comp-bar-meta">
+                                <span>Repayment Behavior Contribution</span>
+                                <span style="font-size: 0.75rem; color: var(--slate-500);">Weight: 50%</span>
+                            </div>
+                            <div class="comp-dual-track">
+                                <div class="bar-row">
+                                    <span class="bar-label">Current:</span>
+                                    <div class="bar-track"><div id="sim-bar-cur-repay" class="bar-fill-current" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="bar-row">
+                                    <span class="bar-label">Simulated:</span>
+                                    <div class="bar-track"><div id="sim-bar-sim-repay" class="bar-fill-simulated" style="width: 90%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Debt Comparison -->
+                        <div class="comp-bar-group">
+                            <div class="comp-bar-meta">
+                                <span>Debt Obligations Contribution</span>
+                                <span style="font-size: 0.75rem; color: var(--slate-500);">Weight: 20%</span>
+                            </div>
+                            <div class="comp-dual-track">
+                                <div class="bar-row">
+                                    <span class="bar-label">Current:</span>
+                                    <div class="bar-track"><div id="sim-bar-cur-debt" class="bar-fill-current" style="width: 70%;"></div></div>
+                                </div>
+                                <div class="bar-row">
+                                    <span class="bar-label">Simulated:</span>
+                                    <div class="bar-track"><div id="sim-bar-sim-debt" class="bar-fill-simulated" style="width: 30%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/scoring-engine.js"></script>
+    <script type="module" src="js/simulation.js"></script>
+</body>
+</html>

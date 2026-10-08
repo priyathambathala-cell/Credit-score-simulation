@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Calculator | Credit Score Simulation Engine</title>
+    <meta name="description" content="Calculate your estimated rule-based credit score with transparent step-by-step factor breakdowns.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/calculator.css">
+</head>
+<body id="calculator-app">
+
+    <!-- Mandatory Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <span>⚠️</span>
+        <span><strong>Educational simulation only</strong> — this is not an official credit score and should not be used for real lending decisions.</span>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <span style="font-size: 1.1rem;">ScoreSim</span>
+                </a>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar auth-user-name">PK</div>
+                <div class="user-info">
+                    <div class="user-name auth-user-name">Priyatham kumar</div>
+                    <div class="user-role auth-user-role">2nd Year B.Tech</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-heading">Simulation Engine</li>
+                <li class="menu-item">
+                    <a href="dashboard.html" class="menu-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="calculator.html" class="menu-link active">
+                        <span class="menu-icon">🧮</span>
+                        <span>Credit Calculator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="simulation.html" class="menu-link">
+                        <span class="menu-icon">🔄</span>
+                        <span>Decision Simulator</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="history.html" class="menu-link">
+                        <span class="menu-icon">📜</span>
+                        <span>Score History</span>
+                    </a>
+                </li>
+
+                <li class="menu-heading">Documentation</li>
+                <li class="menu-item">
+                    <a href="rules.html" class="menu-link">
+                        <span class="menu-icon">📐</span>
+                        <span>Scoring Rules</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">
+                        <span class="menu-icon">💡</span>
+                        <span>About Project</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link">
+                        <span class="menu-icon">👤</span>
+                        <span>Student Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="btn btn-outline-light btn-sm btn-block btn-logout">
+                    🚪 Logout Session
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="app-topbar">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation" style="color: var(--navy-900);">☰</button>
+                    <div class="page-title-group">
+                        <h1>Credit Score Calculator</h1>
+                        <p>Evaluate your profile using transparent rule-based factor algorithms</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="badge db-status-badge">⚪ Database Status</span>
+                    <button id="btn-load-demo" class="btn btn-outline btn-sm">
+                        ⚡ Load Demo Data (Score: 83)
+                    </button>
+                    <a href="rules.html" class="btn btn-outline-light btn-sm" style="color: var(--slate-700); border-color: var(--slate-300);">
+                        Rules Reference
+                    </a>
+                </div>
+            </header>
+
+            <main class="calc-layout">
+                <!-- Two Column Layout: Calculator Form + Output Result View -->
+                <div class="calc-grid">
+                    
+                    <!-- Left: Input Form Card -->
+                    <div class="calc-form-card">
+                        <div class="calc-header-badge">
+                            <div>
+                                <h2 style="font-size: 1.25rem;">Financial Input Parameters</h2>
+                                <p style="font-size: 0.825rem; color: var(--text-muted);">Enter baseline values for educational evaluation</p>
+                            </div>
+                            <span class="badge badge-edu">Rule Engine</span>
+                        </div>
+
+                        <div class="input-instruction-box">
+                            ℹ️ Provide accurate non-negative values. Repayment percentage is calculated as <code>(On-time / Total) × 100</code>.
+                        </div>
+
+                        <!-- Error Box -->
+                        <div id="calc-error-box" class="alert alert-danger" style="display: none;"></div>
+
+                        <form id="calc-form">
+                            <!-- Input 1: Monthly Income -->
+                            <div class="form-group">
+                                <label class="form-label" for="input-income">
+                                    1. Monthly Income (₹) <span class="helper">Weight: 30%</span>
+                                </label>
+                                <div class="input-prefix-group">
+                                    <span class="input-prefix">₹</span>
+                                    <input type="number" id="input-income" class="form-control" placeholder="e.g. 50000" min="0" step="500" required>
+                                </div>
+                                <div class="form-hint">
+                                    Ranges: &lt;₹20k (40) | ₹20k-₹39.9k (60) | ₹40k-₹59.9k (80) | ≥₹60k (100)
+                                </div>
+                            </div>
+
+                            <!-- Repayment Record Row -->
+                            <div class="calc-input-row">
+                                <!-- Input 2: Total Repayments -->
+                                <div class="form-group">
+                                    <label class="form-label" for="input-total-repayments">
+                                        2. Total Repayment Records <span class="helper">Count</span>
+                                    </label>
+                                    <input type="number" id="input-total-repayments" class="form-control" placeholder="e.g. 10" min="1" step="1" required>
+                                    <div class="form-hint">Must be at least 1 record</div>
+                                </div>
+
+                                <!-- Input 3: On-Time Repayments -->
+                                <div class="form-group">
+                                    <label class="form-label" for="input-ontime-repayments">
+                                        3. On-Time Repayments <span class="helper">Weight: 50%</span>
+                                    </label>
+                                    <input type="number" id="input-ontime-repayments" class="form-control" placeholder="e.g. 9" min="0" step="1" required>
+                                    <div class="form-hint">Cannot exceed total records</div>
+                                </div>
+                            </div>
+
+                            <!-- Input 4: Existing Debt -->
+                            <div class="form-group">
+                                <label class="form-label" for="input-debt">
+                                    4. Existing Debt Obligations (₹) <span class="helper">Weight: 20%</span>
+                                </label>
+                                <div class="input-prefix-group">
+                                    <span class="input-prefix">₹</span>
+                                    <input type="number" id="input-debt" class="form-control" placeholder="e.g. 100000" min="0" step="1000" required>
+                                </div>
+                                <div class="form-hint">
+                                    Ranges: ₹0-₹50k (100) | ₹50k-₹1L (70) | ₹1L-₹2L (50) | &gt;₹2L (30)
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="calc-actions">
+                                <button type="submit" id="btn-calculate" class="btn btn-primary btn-lg btn-block">
+                                    🧮 Calculate Estimated Score
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Results Panel -->
+                    <div class="calc-result-panel">
+                        
+                        <!-- Empty State (Shown before calculation) -->
+                        <div id="calc-empty-state" class="calc-empty-state" style="display: none;">
+                            <div class="calc-empty-icon">🧮</div>
+                            <h3 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 0.5rem;">Awaiting Calculation</h3>
+                            <p style="font-size: 0.875rem; max-width: 320px; margin: 0 auto 1.5rem;">
+                                Enter your financial information on the left and click "Calculate Estimated Score" to generate your educational score.
+                            </p>
+                            <button type="button" onclick="document.getElementById('btn-load-demo').click()" class="btn btn-outline btn-sm">
+                                Load Example Profile (Score 83)
+                            </button>
+                        </div>
+
+                        <!-- Active Calculation Result Card -->
+                        <div id="calc-result-container" class="result-card-active">
+                            <!-- Header Band -->
+                            <div class="result-header-band">
+                                <div>
+                                    <span style="font-size: 0.75rem; text-transform: uppercase; color: #93c5fd; letter-spacing: 0.05em; font-weight: 700;">
+                                        Estimated Credit Score
+                                    </span>
+                                    <div class="result-score-highlight">
+                                        <span id="calc-res-score" class="num">83</span>
+                                        <span class="scale">/ 100</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span id="calc-res-rating" class="rating-badge rating-good" style="font-size: 0.9rem; padding: 0.5rem 1rem;">
+                                        GOOD
+                                    </span>
+                                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.35rem;">Educational Rating</div>
+                                </div>
+                            </div>
+
+                            <!-- Body Breakdown -->
+                            <div class="result-body">
+                                <!-- Factor Summary 3-Pill Grid -->
+                                <div class="factor-pill-grid">
+                                    <div class="factor-pill">
+                                        <div class="factor-pill-label">Income Factor</div>
+                                        <div id="calc-res-income-score" class="factor-pill-score">80 / 100</div>
+                                        <div id="calc-res-income-weighted" class="factor-pill-weight">+24 pts (30%)</div>
+                                    </div>
+
+                                    <div class="factor-pill">
+                                        <div class="factor-pill-label">Repayment Factor</div>
+                                        <div id="calc-res-repay-score" class="factor-pill-score">90%</div>
+                                        <div id="calc-res-repay-weighted" class="factor-pill-weight">+45 pts (50%)</div>
+                                    </div>
+
+                                    <div class="factor-pill">
+                                        <div class="factor-pill-label">Debt Factor</div>
+                                        <div id="calc-res-debt-score" class="factor-pill-score">70 / 100</div>
+                                        <div id="calc-res-debt-weighted" class="factor-pill-weight">+14 pts (20%)</div>
+                                    </div>
+                                </div>
+
+                                <!-- Step-by-Step Educational Explanation -->
+                                <div class="edu-explainer-card">
+                                    <h4>
+                                        <span>🔍</span>
+                                        <span>How is this calculated? (Viva Explanation)</span>
+                                    </h4>
+                                    <ul class="edu-step-list">
+                                        <li class="edu-step-item">
+                                            <span class="step-number-bubble">1</span>
+                                            <div>
+                                                <strong>Income Score:</strong> Your monthly income is converted into a score using predefined income ranges.
+                                                <div id="calc-res-formula-income" style="font-family:'Courier New', monospace; color:var(--blue-600); font-weight:700; margin-top:2px;">
+                                                    80 × 30% = 24
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="edu-step-item">
+                                            <span class="step-number-bubble">2</span>
+                                            <div>
+                                                <strong>Repayment Score:</strong> <code>Repayment Score = (On-time / Total) × 100</code>.
+                                                <div id="calc-res-formula-repayment" style="font-family:'Courier New', monospace; color:var(--blue-600); font-weight:700; margin-top:2px;">
+                                                    90% × 50% = 45
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="edu-step-item">
+                                            <span class="step-number-bubble">3</span>
+                                            <div>
+                                                <strong>Debt Score:</strong> Existing debt is mapped inversely into a bracket score.
+                                                <div id="calc-res-formula-debt" style="font-family:'Courier New', monospace; color:var(--blue-600); font-weight:700; margin-top:2px;">
+                                                    70 × 20% = 14
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="edu-step-item">
+                                            <span class="step-number-bubble">4</span>
+                                            <div>
+                                                <strong>Final Score:</strong> <code>Final Score = weighted income + weighted repayment + weighted debt</code>.
+                                                <div id="calc-res-formula-final" style="font-family:'Courier New', monospace; color:#1d4ed8; font-weight:800; margin-top:2px;">
+                                                    24 + 45 + 14 = 83
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Action Buttons: Save & Simulate -->
+                                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                    <button id="btn-save-to-history" class="btn btn-outline" style="flex: 1;">
+                                        💾 Save Result to History
+                                    </button>
+                                    <button id="btn-send-to-simulator" class="btn btn-primary" style="flex: 1.2;">
+                                        🔄 Test in Decision Simulator →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Bottom Disclaimer -->
+            <footer style="padding: 1.5rem 2rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Educational Credit Score Simulation Engine. Results are estimates based on predefined project rules and are not official credit scores.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/scoring-engine.js"></script>
+    <script type="module" src="js/calculator.js"></script>
+</body>
+</html>

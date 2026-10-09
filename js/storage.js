@@ -156,7 +156,7 @@ export const StorageService = {
         if (users.length === 0) {
             const defaultUser = {
                 id: 'demo_user_1',
-                fullName: 'Priyatham kumar (Demo Student)',
+                fullName: 'Priyatham kumar',
                 email: 'demo@college.edu',
                 password: 'password123',
                 role: '2nd Year B.Tech Student',

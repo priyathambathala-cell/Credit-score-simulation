@@ -104,7 +104,7 @@ router.post('/login', async (req, res) => {
 router.post('/demo', async (req, res) => {
     try {
         const demoData = {
-            fullName: 'Priyatham kumar (Demo Student)',
+            fullName: 'Priyatham kumar',
             email: 'demo@college.edu',
             password: 'password123',
             role: '2nd Year B.Tech Student'

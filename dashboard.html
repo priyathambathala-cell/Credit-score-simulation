@@ -50,6 +50,7 @@
                     </div>
                     <span style="font-size: 1.1rem;">ScoreSim</span>
                 </a>
+                <button class="sidebar-close-btn" aria-label="Close navigation menu">✕</button>
             </div>
 
             <div class="sidebar-user">
@@ -128,9 +129,7 @@
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span class="badge db-status-badge">⚪ Database Status</span>
-                    <span class="badge badge-edu">Educational Model</span>
-                    <button id="btn-reset-demo-profile" class="btn btn-outline btn-sm" title="Reset profile to baseline 83 GOOD demo">
+                    <button id="btn-reset-demo-profile" class="btn btn-outline btn-sm" title="Reset profile to baseline 83 GOOD">
                         🔄 Reset Baseline (83)
                     </button>
                 </div>
@@ -238,6 +237,195 @@
                         </div>
                         <div class="summary-card-footer">
                             <span>Assigned Weight: <strong>20%</strong></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Simulation Engine Options & Control Hub (Direct Dashboard Access) -->
+                <section class="dash-options-hub">
+                    <div class="hub-header">
+                        <div class="hub-title-group">
+                            <h3>🎛️ Simulation Options & Tools Center</h3>
+                            <p>Directly access, test, and control all simulation engine modules from your dashboard</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-desktop-guide-dash">
+                                🖥️ Desktop Site Guide
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btn-dash-quick-calc">
+                                🧮 Open Calculator
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1-Click Instant Scenario Switches (Live Simulation directly on Dashboard) -->
+                    <div class="quick-scenarios-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                            <div>
+                                <strong style="color: var(--navy-900); font-size: 0.95rem;">⚡ 1-Click Hypothetical Scenario Toggles</strong>
+                                <div style="font-size: 0.8rem; color: var(--slate-600);">Tap any scenario below to immediately project score changes on this dashboard:</div>
+                            </div>
+                            <button type="button" id="btn-revert-scenario" class="btn btn-outline-light btn-sm" style="font-size: 0.775rem; display: none;">
+                                ↩️ Revert to Saved Baseline
+                            </button>
+                        </div>
+
+                        <div class="scenarios-grid">
+                            <!-- Scenario 1 -->
+                            <button type="button" class="btn-scenario-pill" data-scenario="income_raise">
+                                <div class="scenario-title">
+                                    <span>💼 Salary Raise (+₹25k)</span>
+                                    <span class="scenario-delta-badge delta-pos">+6 pts</span>
+                                </div>
+                                <div class="scenario-desc">Simulate monthly salary growing from ₹50,000 to ₹75,000 (Top bracket: 100 score).</div>
+                            </button>
+
+                            <!-- Scenario 2 -->
+                            <button type="button" class="btn-scenario-pill" data-scenario="perfect_repay">
+                                <div class="scenario-title">
+                                    <span>⏱️ 100% Repayments</span>
+                                    <span class="scenario-delta-badge delta-pos">+5 pts</span>
+                                </div>
+                                <div class="scenario-desc">Simulate 10 out of 10 repayments on time (Full 50% max contribution: 50 pts).</div>
+                            </button>
+
+                            <!-- Scenario 3 -->
+                            <button type="button" class="btn-scenario-pill" data-scenario="debt_payoff">
+                                <div class="scenario-title">
+                                    <span>💳 Debt Paid (-₹50k)</span>
+                                    <span class="scenario-delta-badge delta-pos">+6 pts</span>
+                                </div>
+                                <div class="scenario-desc">Simulate debt dropping to ₹50,000 (Upgrades debt score bracket to 100/100).</div>
+                            </button>
+
+                            <!-- Scenario 4 -->
+                            <button type="button" class="btn-scenario-pill" data-scenario="default_missed">
+                                <div class="scenario-title">
+                                    <span>⚠️ 2 Late Defaults</span>
+                                    <span class="scenario-delta-badge delta-neg">-10 pts</span>
+                                </div>
+                                <div class="scenario-desc">Simulate missed payment records (Repayment drops to 70%, score drops to 73).</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- All 5 Core Module Cards on Dashboard -->
+                    <div class="hub-modules-grid">
+                        <!-- Module 1: Calculator -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: var(--primary);">🧮</div>
+                                <div class="hub-module-info">
+                                    <h4>Credit Calculator</h4>
+                                    <p>Evaluate customized Income, Repayment count, and Debt with live factor breakdown.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="calculator.html" class="btn btn-primary btn-sm btn-block">
+                                    Launch Calculator →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Module 2: Decision Simulator -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: #06b6d4;">🔄</div>
+                                <div class="hub-module-info">
+                                    <h4>Decision Simulator</h4>
+                                    <p>Interactive sliders & What-If scenarios with live Before vs After delta comparisons.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="simulation.html" class="btn btn-secondary btn-sm btn-block">
+                                    Open Simulator →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Module 3: Scoring Rules -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: #8b5cf6;">📐</div>
+                                <div class="hub-module-info">
+                                    <h4>Scoring Rules Matrix</h4>
+                                    <p>30% Income, 50% Repayment, and 20% Debt brackets with academic viva justifications.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="rules.html" class="btn btn-outline btn-sm btn-block">
+                                    View Rules & Weights →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Module 4: Score History -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: #10b981;">📜</div>
+                                <div class="hub-module-info">
+                                    <h4>History & Tracking</h4>
+                                    <p>Track all past evaluations, compare historical progression, and export data.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="history.html" class="btn btn-outline btn-sm btn-block">
+                                    View History Log →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Module 5: Student Profile & Sync -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: #f59e0b;">👤</div>
+                                <div class="hub-module-info">
+                                    <h4>Student Profile & Sync</h4>
+                                    <p>Manage college roll number, academic details, and database cloud sync settings.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="profile.html" class="btn btn-outline btn-sm btn-block">
+                                    Manage Profile →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Module 6: Project Overview & About -->
+                        <div class="hub-module-card">
+                            <div class="hub-module-header">
+                                <div class="hub-module-icon" style="color: #ec4899;">💡</div>
+                                <div class="hub-module-info">
+                                    <h4>Academic Documentation</h4>
+                                    <p>Project scope, algorithmic definitions, and project viva reference guide.</p>
+                                </div>
+                            </div>
+                            <div class="hub-module-actions">
+                                <a href="about.html" class="btn btn-outline btn-sm btn-block">
+                                    About Project →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Engine Feature & Display Toggles -->
+                    <div class="engine-toggles-bar">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--navy-900);">
+                            ⚙️ Dashboard Display Options:
+                        </span>
+                        <div class="toggle-group">
+                            <label class="toggle-item" title="Show/Hide detailed mathematical step-by-step breakdown">
+                                <input type="checkbox" id="toggle-viva-math" class="switch-input" checked>
+                                <span>Viva Formula Walkthrough</span>
+                            </label>
+                            <label class="toggle-item" title="Enable animated circular score meter">
+                                <input type="checkbox" id="toggle-gauge-pulse" class="switch-input" checked>
+                                <span>Live Visualizer Gauge</span>
+                            </label>
+                            <label class="toggle-item" title="Save evaluations automatically">
+                                <input type="checkbox" id="toggle-auto-save" class="switch-input" checked>
+                                <span>Auto-Save to History</span>
+                            </label>
                         </div>
                     </div>
                 </section>

@@ -16,7 +16,7 @@
     </div>
 
     <!-- Top Bar -->
-    <div style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+    <div class="auth-topbar">
         <a href="index.html" class="brand-logo">
             <div class="brand-icon-wrapper">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -31,7 +31,7 @@
     </div>
 
     <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;">
-        <div style="background: #ffffff; width: 100%; max-width: 490px; border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 35px rgba(99, 102, 241, 0.2); border: 1.5px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+        <div class="auth-card">
             <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-primary);"></div>
             
             <!-- Contextual Banner if Redirected from Dashboard -->
@@ -63,7 +63,7 @@
                     <input type="email" id="reg-email" class="form-control" placeholder="student@college.edu" required>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-row-2col" style="gap: 1rem;">
                     <div class="form-group">
                         <label class="form-label" for="reg-password">Password</label>
                         <input type="password" id="reg-password" class="form-control" placeholder="Min 6 chars" required minlength="6">

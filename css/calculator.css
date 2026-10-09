@@ -1,6 +1,6 @@
 /* ==========================================================================
    CREDIT SCORE SIMULATION ENGINE - CALCULATOR STYLESHEET
-   Vibrant, Interactive & High-Engagement Form & Results
+   Clean, Unified & Interactive Form with In-Place Results
    ========================================================================== */
 
 .calc-layout {
@@ -8,6 +8,9 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .calc-grid {
@@ -184,9 +187,7 @@
   gap: 1.75rem;
 }
 
-/* --------------------------------------------------------------------------
-   Educational Explanation Box
-   -------------------------------------------------------------------------- */
+/* Educational Explanation Box */
 .edu-explainer-card {
   background: linear-gradient(135deg, #f8faff 0%, #f1f5f9 100%);
   border: 1px solid var(--border-light);
@@ -236,9 +237,7 @@
   box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
 }
 
-/* --------------------------------------------------------------------------
-   Factor Summary Pill Grid
-   -------------------------------------------------------------------------- */
+/* Factor Summary Pill Grid */
 .factor-pill-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -289,20 +288,107 @@
   display: inline-block;
 }
 
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
 @media (max-width: 960px) {
   .calc-grid {
     grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 }
 
 @media (max-width: 640px) {
   .calc-layout {
-    padding: 1rem;
+    padding: 0.875rem;
+    gap: 1.25rem;
   }
+
+  .calc-form-card {
+    padding: 1.35rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .calc-header-badge {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.15rem;
+  }
+
   .calc-input-row {
     grid-template-columns: 1fr;
+    gap: 1.15rem;
   }
+
+  .input-instruction-box {
+    padding: 0.85rem 1rem;
+    font-size: 0.8125rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.35rem;
+  }
+
+  .calc-actions {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
+
+  .calc-actions .btn {
+    padding: 0.95rem 1rem;
+    font-size: 0.98rem;
+    min-height: 50px;
+  }
+
+  .result-card-active {
+    border-radius: var(--radius-lg);
+  }
+
+  .result-header-band {
+    padding: 1.35rem 1.15rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .result-score-highlight .num {
+    font-size: 3rem;
+  }
+
+  .result-body {
+    padding: 1.25rem 1.15rem;
+    gap: 1.25rem;
+  }
+
   .factor-pill-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .factor-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-radius: var(--radius-md);
+  }
+
+  .factor-pill-label {
+    font-size: 0.8rem;
+  }
+
+  .factor-pill-score {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .edu-explainer-card {
+    padding: 1.15rem 1rem;
+  }
+
+  .edu-step-item {
+    font-size: 0.825rem;
+    gap: 0.75rem;
   }
 }

@@ -366,9 +366,16 @@
   box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Polish
+   ========================================================================== */
 @media (max-width: 960px) {
+  .sim-layout {
+    padding: 1.25rem 1.5rem;
+  }
   .dual-sim-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   .delta-score-hero {
     flex-direction: column;
@@ -378,6 +385,93 @@
 
 @media (max-width: 640px) {
   .sim-layout {
-    padding: 1rem;
+    padding: 0.875rem;
+    gap: 1.25rem;
+  }
+
+  .scenario-preset-bar {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .scenario-preset-title {
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .scenario-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .btn-scenario {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-size: 0.875rem;
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    border: 1.5px solid #dbeafe;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .sim-profile-card {
+    padding: 1.35rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .sim-panel-title {
+    font-size: 1.1rem;
+  }
+
+  .sim-score-box {
+    padding: 1rem 1.15rem;
+  }
+
+  .sim-score-value {
+    font-size: 2.25rem;
+  }
+
+  .sim-param-row {
+    font-size: 0.825rem;
+    padding: 0.5rem 0;
+  }
+
+  .delta-impact-card {
+    padding: 1.35rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .delta-score-hero {
+    padding: 1.35rem 1rem;
+    gap: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .delta-stat-number {
+    font-size: 2.15rem;
+  }
+
+  .delta-pill-big {
+    font-size: 1.3rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .bar-row {
+    font-size: 0.75rem;
+    gap: 0.45rem;
+  }
+
+  .bar-label {
+    width: 65px;
+  }
+
+  .bar-track {
+    height: 10px;
   }
 }
+

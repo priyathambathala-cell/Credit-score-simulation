@@ -50,6 +50,7 @@
                     </div>
                     <span style="font-size: 1.1rem;">ScoreSim</span>
                 </a>
+                <button class="sidebar-close-btn" aria-label="Close navigation menu">✕</button>
             </div>
 
             <div class="sidebar-user">
@@ -127,7 +128,6 @@
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span class="badge db-status-badge">⚪ Database Status</span>
                     <button id="btn-load-sim-example" class="btn btn-outline btn-sm">
                         🧪 Load Debt Example (₹2.5L)
                     </button>
@@ -243,7 +243,7 @@
                                     <input type="number" id="sim-input-income" class="form-control" placeholder="50000" min="0" step="500">
                                 </div>
 
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div class="form-row-2col" style="gap: 0.75rem;">
                                     <div>
                                         <label class="form-label" style="font-size: 0.8125rem;">New Total Records</label>
                                         <input type="number" id="sim-input-total-repay" class="form-control" placeholder="10" min="1">

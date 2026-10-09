@@ -49,6 +49,7 @@
                     </div>
                     <span style="font-size: 1.1rem;">ScoreSim</span>
                 </a>
+                <button class="sidebar-close-btn" aria-label="Close navigation menu">✕</button>
             </div>
 
             <div class="sidebar-user">
@@ -124,11 +125,6 @@
                         <p>Academic session management and local simulation workspace</p>
                     </div>
                 </div>
-
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span class="badge db-status-badge">⚪ Database Status</span>
-                    <span class="badge badge-edu">Demo Session</span>
-                </div>
             </header>
 
             <main class="page-container">
@@ -146,12 +142,12 @@
                             </div>
                             <p class="auth-user-email" style="font-size: 0.875rem; color: var(--slate-500); margin-bottom: 0.5rem;">demo@college.edu</p>
                             <div style="font-size: 0.775rem; color: var(--slate-600);">
-                                Storage Mode: <strong>Client LocalStorage</strong> | Session: <strong>Educational Demo Active</strong>
+                                Storage Mode: <strong>Client LocalStorage</strong> | Session: <strong>Active</strong>
                             </div>
                         </div>
                         <div>
                             <button id="btn-sync-demo-account" class="btn btn-outline btn-sm">
-                                🔄 Reload Demo Student
+                                🔄 Refresh Profile
                             </button>
                         </div>
                     </div>
@@ -171,7 +167,7 @@
                         <div id="profile-edit-error" class="alert alert-danger" style="display: none;"></div>
 
                         <form id="form-edit-student-profile">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1rem;">
+                            <div class="form-row-2col" style="margin-bottom: 1rem;">
                                 <div class="form-group">
                                     <label class="form-label" for="edit-student-name">Full Name</label>
                                     <input type="text" id="edit-student-name" class="form-control" placeholder="e.g. Priyatham kumar" required>
@@ -183,7 +179,7 @@
                                 </div>
                             </div>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                            <div class="form-row-2col" style="margin-bottom: 1.25rem;">
                                 <div class="form-group">
                                     <label class="form-label" for="edit-student-role">Academic Role / Course</label>
                                     <input type="text" id="edit-student-role" class="form-control" placeholder="e.g. 2nd Year B.Tech CSE">
@@ -318,7 +314,7 @@
         document.getElementById('btn-sync-demo-account')?.addEventListener('click', () => {
             AuthService.loginDemo();
             populateForm();
-            UI.showToast('Demo Student account refreshed!', 'success');
+            UI.showToast('Student profile refreshed!', 'success');
             AuthService.syncAuthUI();
         });
 

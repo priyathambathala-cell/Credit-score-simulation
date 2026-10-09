@@ -1,10 +1,10 @@
 /**
  * ============================================================================
- * Dashboard Controller
+ * Dashboard Controller - Interactive Control Hub
  * ============================================================================
- * Renders the student dashboard with current estimated score, rating,
- * breakdown calculations, factor progress meters, and recent score activities.
- * Enforces authentication so the dashboard opens ONLY after signing up / logging in.
+ * Renders the student dashboard with estimated score, live gauge,
+ * factor progress breakdown, 1-click hypothetical scenario simulator,
+ * and direct dashboard tool options.
  */
 
 import { StorageService } from './storage.js';
@@ -13,6 +13,8 @@ import { evaluateCreditProfile, DEMO_FINANCIAL_PROFILE } from './scoring-engine.
 import { UI } from './main.js';
 
 export const DashboardController = {
+    activeScenario: null,
+
     init() {
         // Enforce account sign-up before dashboard opens
         if (!AuthService.requireAuth('register.html')) {
@@ -34,8 +36,8 @@ export const DashboardController = {
         return profile;
     },
 
-    renderDashboard() {
-        const data = this.getCurrentData();
+    renderDashboard(customData = null) {
+        const data = customData || this.getCurrentData();
         const { inputs, scores, rating, breakdown } = data;
 
         // 1. Summary Cards
@@ -131,17 +133,124 @@ export const DashboardController = {
     },
 
     attachEventListeners() {
-        // Quick Reset to Demo Button
+        // Quick Reset to Demo Button in Topbar
         const btnResetDemo = document.getElementById('btn-reset-demo-profile');
         if (btnResetDemo) {
             btnResetDemo.addEventListener('click', () => {
                 const demoResult = evaluateCreditProfile(DEMO_FINANCIAL_PROFILE);
                 demoResult.source = 'Demo Reset';
                 StorageService.saveCurrentProfile(demoResult);
+                this.activeScenario = null;
+                this.clearScenarioHighlight();
                 this.renderDashboard();
                 UI.showToast('Profile reset to standard Demo profile (Score: 83)', 'success');
             });
         }
+
+        // Quick Calculator Button in Hub
+        const btnQuickCalc = document.getElementById('btn-dash-quick-calc');
+        if (btnQuickCalc) {
+            btnQuickCalc.addEventListener('click', () => {
+                window.location.href = 'calculator.html';
+            });
+        }
+
+        // Desktop Site Guide Button in Hub
+        const btnDesktopGuide = document.getElementById('btn-desktop-guide-dash');
+        if (btnDesktopGuide) {
+            btnDesktopGuide.addEventListener('click', () => {
+                UI.openDesktopGuideModal();
+            });
+        }
+
+        // 1-Click Hypothetical Scenario Switches
+        const scenarioBtns = document.querySelectorAll('.btn-scenario-pill');
+        const btnRevert = document.getElementById('btn-revert-scenario');
+
+        scenarioBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const scenario = btn.getAttribute('data-scenario');
+                this.applyScenario(scenario, btn);
+            });
+        });
+
+        if (btnRevert) {
+            btnRevert.addEventListener('click', () => {
+                this.activeScenario = null;
+                this.clearScenarioHighlight();
+                if (btnRevert) btnRevert.style.display = 'none';
+                this.renderDashboard();
+                UI.showToast('Reverted back to your saved profile baseline.', 'info');
+            });
+        }
+
+        // Display Toggles on Dashboard
+        const toggleVivaMath = document.getElementById('toggle-viva-math');
+        const toggleGaugePulse = document.getElementById('toggle-gauge-pulse');
+        const toggleAutoSave = document.getElementById('toggle-auto-save');
+
+        if (toggleVivaMath) {
+            toggleVivaMath.addEventListener('change', (e) => {
+                const breakdownCard = document.querySelector('.breakdown-card');
+                if (breakdownCard) {
+                    breakdownCard.style.display = e.target.checked ? 'flex' : 'none';
+                }
+            });
+        }
+
+        if (toggleGaugePulse) {
+            toggleGaugePulse.addEventListener('change', (e) => {
+                const meterCard = document.querySelector('.score-visualizer-card');
+                if (meterCard) {
+                    meterCard.style.opacity = e.target.checked ? '1' : '0.85';
+                }
+            });
+        }
+
+        if (toggleAutoSave) {
+            toggleAutoSave.addEventListener('change', (e) => {
+                localStorage.setItem('scoresim_auto_save', e.target.checked ? 'true' : 'false');
+                UI.showToast(`Auto-save to history is now ${e.target.checked ? 'ENABLED' : 'DISABLED'}.`, 'info');
+            });
+        }
+    },
+
+    applyScenario(scenarioType, activeBtn) {
+        const base = this.getCurrentData().inputs;
+        let simulatedInputs = { ...base };
+        let scenarioName = '';
+
+        if (scenarioType === 'income_raise') {
+            simulatedInputs.monthlyIncome = 75000;
+            scenarioName = 'Salary Raise (+₹25,000/mo)';
+        } else if (scenarioType === 'perfect_repay') {
+            simulatedInputs.totalRepayments = 10;
+            simulatedInputs.onTimeRepayments = 10;
+            scenarioName = '100% On-Time Repayments';
+        } else if (scenarioType === 'debt_payoff') {
+            simulatedInputs.existingDebt = 50000;
+            scenarioName = 'Debt Paid Off (-₹50,000)';
+        } else if (scenarioType === 'default_missed') {
+            simulatedInputs.totalRepayments = 10;
+            simulatedInputs.onTimeRepayments = 7;
+            scenarioName = '2 Missed Loan Defaults';
+        }
+
+        this.activeScenario = scenarioType;
+        this.clearScenarioHighlight();
+        if (activeBtn) activeBtn.classList.add('active');
+
+        const btnRevert = document.getElementById('btn-revert-scenario');
+        if (btnRevert) btnRevert.style.display = 'inline-block';
+
+        const result = evaluateCreditProfile(simulatedInputs);
+        this.renderDashboard(result);
+
+        UI.showToast(`Simulated: ${scenarioName} → Score: ${Math.round(result.scores.finalScore)} (${result.rating.label})`, 'info');
+    },
+
+    clearScenarioHighlight() {
+        document.querySelectorAll('.btn-scenario-pill').forEach(btn => btn.classList.remove('active'));
     }
 };
 

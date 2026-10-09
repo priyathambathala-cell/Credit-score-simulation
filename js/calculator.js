@@ -1,14 +1,18 @@
 /**
  * ============================================================================
- * Credit Score Calculator Controller
+ * Credit Score Calculator - Unified Single-Page Controller
  * ============================================================================
- * Handles user input collection, live validation, rule execution,
- * calculation visualization, demo data filling, and saving results.
+ * Handles real-time validation, single-card calculation, mathematical explanation,
+ * preset demo population, and saving to student history.
  */
 
 import {
     evaluateCreditProfile,
     validateInputs,
+    calculateIncomeScore,
+    calculateRepaymentScore,
+    calculateDebtScore,
+    calculateWeightedScore,
     DEMO_FINANCIAL_PROFILE,
     WEIGHTS
 } from './scoring-engine.js';
@@ -21,90 +25,101 @@ export const CalculatorController = {
     init() {
         this.cacheDOM();
         this.attachEvents();
-        this.populateFromCurrentProfile();
+        this.populateInitialData();
     },
 
     cacheDOM() {
+        // Form & Inputs
         this.form = document.getElementById('calc-form');
         this.inputIncome = document.getElementById('input-income');
         this.inputTotalRepayments = document.getElementById('input-total-repayments');
         this.inputOnTimeRepayments = document.getElementById('input-ontime-repayments');
         this.inputDebt = document.getElementById('input-debt');
 
+        // Buttons & Action Triggers
         this.btnCalculate = document.getElementById('btn-calculate');
         this.btnLoadDemo = document.getElementById('btn-load-demo');
         this.btnSaveHistory = document.getElementById('btn-save-to-history');
         this.btnSendToSim = document.getElementById('btn-send-to-simulator');
 
+        // Display Panels & Error Box
         this.errorBox = document.getElementById('calc-error-box');
         this.emptyState = document.getElementById('calc-empty-state');
         this.resultContainer = document.getElementById('calc-result-container');
+
+        // Result Score Elements
+        this.resScore = document.getElementById('calc-res-score');
+        this.resRating = document.getElementById('calc-res-rating');
+
+        // Factor Pills
+        this.resIncomeScore = document.getElementById('calc-res-income-score');
+        this.resIncomeWeighted = document.getElementById('calc-res-income-weighted');
+        this.resRepayScore = document.getElementById('calc-res-repay-score');
+        this.resRepayWeighted = document.getElementById('calc-res-repay-weighted');
+        this.resDebtScore = document.getElementById('calc-res-debt-score');
+        this.resDebtWeighted = document.getElementById('calc-res-debt-weighted');
+
+        // Explainer Formulas
+        this.formulaIncome = document.getElementById('calc-res-formula-income');
+        this.formulaRepayment = document.getElementById('calc-res-formula-repayment');
+        this.formulaDebt = document.getElementById('calc-res-formula-debt');
+        this.formulaFinal = document.getElementById('calc-res-formula-final');
     },
 
     attachEvents() {
+        // Form Submission
         if (this.form) {
             this.form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                this.handleCalculate();
+                this.handleCalculate(true);
             });
         }
 
+        // Live input listeners for clearing errors
+        [this.inputIncome, this.inputTotalRepayments, this.inputOnTimeRepayments, this.inputDebt].forEach(input => {
+            if (input) {
+                input.addEventListener('input', () => {
+                    this.hideError();
+                });
+            }
+        });
+
+        // Load Demo Data
         if (this.btnLoadDemo) {
-            this.btnLoadDemo.addEventListener('click', () => {
+            this.btnLoadDemo.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.loadDemoData();
             });
         }
 
+        // Save Result to History
         if (this.btnSaveHistory) {
-            this.btnSaveHistory.addEventListener('click', () => {
+            this.btnSaveHistory.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.saveCurrentCalculationToHistory();
             });
         }
 
+        // Send to Decision Simulator
         if (this.btnSendToSim) {
-            this.btnSendToSim.addEventListener('click', () => {
+            this.btnSendToSim.addEventListener('click', (e) => {
+                e.preventDefault();
                 if (this.currentResult) {
                     StorageService.saveCurrentProfile(this.currentResult);
                     window.location.href = 'simulation.html';
+                } else {
+                    UI.showToast('Please calculate a score first.', 'warning');
                 }
             });
         }
-
-        // Live validation clearing on input
-        [this.inputIncome, this.inputTotalRepayments, this.inputOnTimeRepayments, this.inputDebt].forEach(input => {
-            if (input) {
-                input.addEventListener('input', () => this.hideError());
-            }
-        });
-    },
-
-    populateFromCurrentProfile() {
-        const profile = StorageService.getCurrentProfile();
-        if (profile && profile.inputs) {
-            this.inputIncome.value = profile.inputs.monthlyIncome;
-            this.inputTotalRepayments.value = profile.inputs.totalRepayments;
-            this.inputOnTimeRepayments.value = profile.inputs.onTimeRepayments;
-            this.inputDebt.value = profile.inputs.existingDebt;
-            this.handleCalculate(false); // Evaluate quietly
-        }
-    },
-
-    loadDemoData() {
-        this.inputIncome.value = DEMO_FINANCIAL_PROFILE.monthlyIncome;
-        this.inputTotalRepayments.value = DEMO_FINANCIAL_PROFILE.totalRepayments;
-        this.inputOnTimeRepayments.value = DEMO_FINANCIAL_PROFILE.onTimeRepayments;
-        this.inputDebt.value = DEMO_FINANCIAL_PROFILE.existingDebt;
-        
-        UI.showToast('Loaded standard demo profile (₹50k Income, 9/10 Repayments, ₹1L Debt)', 'info');
-        this.handleCalculate(true);
     },
 
     getFormValues() {
         return {
-            monthlyIncome: this.inputIncome.value.trim(),
-            totalRepayments: this.inputTotalRepayments.value.trim(),
-            onTimeRepayments: this.inputOnTimeRepayments.value.trim(),
-            existingDebt: this.inputDebt.value.trim()
+            monthlyIncome: this.inputIncome ? this.inputIncome.value.trim() : '50000',
+            totalRepayments: this.inputTotalRepayments ? this.inputTotalRepayments.value.trim() : '10',
+            onTimeRepayments: this.inputOnTimeRepayments ? this.inputOnTimeRepayments.value.trim() : '9',
+            existingDebt: this.inputDebt ? this.inputDebt.value.trim() : '100000'
         };
     },
 
@@ -112,6 +127,7 @@ export const CalculatorController = {
         if (this.errorBox) {
             this.errorBox.innerHTML = `<span>⚠️</span> <span>${message}</span>`;
             this.errorBox.style.display = 'flex';
+            this.errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
             UI.showToast(message, 'error');
         }
@@ -138,61 +154,82 @@ export const CalculatorController = {
             const result = evaluateCreditProfile(rawInputs);
             this.currentResult = result;
             
-            // Save as active profile
+            // Persist as current active profile in local storage
             StorageService.saveCurrentProfile(result);
 
             this.renderResult(result);
 
             if (showToastNotice) {
-                UI.showToast(`Calculation complete: Score is ${Math.round(result.scores.finalScore)} (${result.rating.label})`, 'success');
+                UI.showToast(`Evaluation Complete! Estimated Score: ${Math.round(result.scores.finalScore)} / 100 (${result.rating.label})`, 'success');
+            }
+
+            // Scroll result into view on mobile
+            if (window.innerWidth <= 768 && this.resultContainer) {
+                this.resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (err) {
-            this.showError(err.message);
+            this.showError(err.message || 'An unexpected calculation error occurred.');
         }
     },
 
     renderResult(result) {
+        if (!result) return;
+        const { inputs, scores, rating, breakdown } = result;
+
+        // Show result card and hide empty state
         if (this.emptyState) this.emptyState.style.display = 'none';
         if (this.resultContainer) this.resultContainer.style.display = 'block';
 
-        const { inputs, scores, rating, breakdown } = result;
-
-        // Header score and rating
-        const numElem = document.getElementById('calc-res-score');
-        const ratingBadge = document.getElementById('calc-res-rating');
-        if (numElem) numElem.textContent = Math.round(scores.finalScore);
-        if (ratingBadge) {
-            ratingBadge.textContent = rating.label;
-            ratingBadge.className = `rating-badge ${rating.class}`;
+        // Score and Rating Badge
+        if (this.resScore) this.resScore.textContent = Math.round(scores.finalScore);
+        if (this.resRating) {
+            this.resRating.textContent = rating.label;
+            this.resRating.className = `rating-badge ${rating.class}`;
         }
 
-        // Factor summary pills
-        const pillIncomeScore = document.getElementById('calc-res-income-score');
-        const pillIncomeWeight = document.getElementById('calc-res-income-weighted');
-        const pillRepayScore = document.getElementById('calc-res-repay-score');
-        const pillRepayWeight = document.getElementById('calc-res-repay-weighted');
-        const pillDebtScore = document.getElementById('calc-res-debt-score');
-        const pillDebtWeight = document.getElementById('calc-res-debt-weighted');
+        // 3 Factor Summary Pills
+        if (this.resIncomeScore) this.resIncomeScore.textContent = `${scores.incomeScore} / 100`;
+        if (this.resIncomeWeighted) this.resIncomeWeighted.textContent = `+${scores.weightedIncome} pts (30%)`;
 
-        if (pillIncomeScore) pillIncomeScore.textContent = `${scores.incomeScore} / 100`;
-        if (pillIncomeWeight) pillIncomeWeight.textContent = `+${scores.weightedIncome} pts (30%)`;
+        if (this.resRepayScore) this.resRepayScore.textContent = `${scores.repaymentScore}%`;
+        if (this.resRepayWeighted) this.resRepayWeighted.textContent = `+${scores.weightedRepayment} pts (50%)`;
 
-        if (pillRepayScore) pillRepayScore.textContent = `${scores.repaymentScore}%`;
-        if (pillRepayWeight) pillRepayWeight.textContent = `+${scores.weightedRepayment} pts (50%)`;
+        if (this.resDebtScore) this.resDebtScore.textContent = `${scores.debtScore} / 100`;
+        if (this.resDebtWeighted) this.resDebtWeighted.textContent = `+${scores.weightedDebt} pts (20%)`;
 
-        if (pillDebtScore) pillDebtScore.textContent = `${scores.debtScore} / 100`;
-        if (pillDebtWeight) pillDebtWeight.textContent = `+${scores.weightedDebt} pts (20%)`;
+        // Educational Formulas
+        if (this.formulaIncome) this.formulaIncome.textContent = breakdown.incomeFormula || `${scores.incomeScore} × 30% = ${scores.weightedIncome}`;
+        if (this.formulaRepayment) this.formulaRepayment.textContent = breakdown.repaymentFormula || `${scores.repaymentScore}% × 50% = ${scores.weightedRepayment}`;
+        if (this.formulaDebt) this.formulaDebt.textContent = breakdown.debtFormula || `${scores.debtScore} × 20% = ${scores.weightedDebt}`;
+        if (this.formulaFinal) this.formulaFinal.textContent = breakdown.finalFormula || `${scores.weightedIncome} + ${scores.weightedRepayment} + ${scores.weightedDebt} = ${scores.finalScore}`;
+    },
 
-        // Breakdown formulas
-        const formulaIncome = document.getElementById('calc-res-formula-income');
-        const formulaRepayment = document.getElementById('calc-res-formula-repayment');
-        const formulaDebt = document.getElementById('calc-res-formula-debt');
-        const formulaFinal = document.getElementById('calc-res-formula-final');
+    populateInitialData() {
+        const savedProfile = StorageService.getCurrentProfile();
+        if (savedProfile && savedProfile.inputs) {
+            if (this.inputIncome) this.inputIncome.value = savedProfile.inputs.monthlyIncome;
+            if (this.inputTotalRepayments) this.inputTotalRepayments.value = savedProfile.inputs.totalRepayments;
+            if (this.inputOnTimeRepayments) this.inputOnTimeRepayments.value = savedProfile.inputs.onTimeRepayments;
+            if (this.inputDebt) this.inputDebt.value = savedProfile.inputs.existingDebt;
+            this.currentResult = savedProfile;
+            this.renderResult(savedProfile);
+        } else {
+            this.loadDemoData(false);
+        }
+    },
 
-        if (formulaIncome) formulaIncome.textContent = breakdown.incomeFormula;
-        if (formulaRepayment) formulaRepayment.textContent = breakdown.repaymentFormula;
-        if (formulaDebt) formulaDebt.textContent = breakdown.debtFormula;
-        if (formulaFinal) formulaFinal.textContent = breakdown.finalFormula;
+    loadDemoData(showToast = true) {
+        if (this.inputIncome) this.inputIncome.value = DEMO_FINANCIAL_PROFILE.monthlyIncome;
+        if (this.inputTotalRepayments) this.inputTotalRepayments.value = DEMO_FINANCIAL_PROFILE.totalRepayments;
+        if (this.inputOnTimeRepayments) this.inputOnTimeRepayments.value = DEMO_FINANCIAL_PROFILE.onTimeRepayments;
+        if (this.inputDebt) this.inputDebt.value = DEMO_FINANCIAL_PROFILE.existingDebt;
+
+        this.hideError();
+        this.handleCalculate(showToast);
+
+        if (showToast) {
+            UI.showToast('Loaded standard demo baseline (Score: 83 GOOD)', 'info');
+        }
     },
 
     saveCurrentCalculationToHistory() {

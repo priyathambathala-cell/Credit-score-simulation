@@ -160,7 +160,7 @@ export const HistoryController = {
                 </div>
 
                 <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">Input Parameters</h4>
-                <div style="background:var(--slate-50); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:0.875rem; margin-bottom:1.25rem; font-size:0.85rem; display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+                <div class="form-row-2col" style="background:var(--slate-50); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:0.875rem; margin-bottom:1.25rem; font-size:0.85rem; gap:0.75rem;">
                     <div>Monthly Income: <strong>${UI.formatCurrency(item.inputs.monthlyIncome)}</strong></div>
                     <div>Repayment Ratio: <strong>${item.inputs.onTimeRepayments}/${item.inputs.totalRepayments} (${item.inputs.repaymentPercentage}%)</strong></div>
                     <div>Existing Debt: <strong>${UI.formatCurrency(item.inputs.existingDebt)}</strong></div>

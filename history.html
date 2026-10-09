@@ -49,6 +49,7 @@
                     </div>
                     <span style="font-size: 1.1rem;">ScoreSim</span>
                 </a>
+                <button class="sidebar-close-btn" aria-label="Close navigation menu">✕</button>
             </div>
 
             <div class="sidebar-user">
@@ -126,7 +127,6 @@
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span class="badge db-status-badge">⚪ Database Status</span>
                     <button id="btn-export-csv" class="btn btn-outline btn-sm">
                         📥 Export CSV
                     </button>
@@ -140,16 +140,16 @@
                 <div class="container" style="max-width: 100%;">
                     
                     <!-- Filter Toolbar -->
-                    <div class="card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900);">Total Logged:</span>
+                    <div class="card history-filter-card" style="margin-bottom: 1.5rem; padding: 1.15rem 1.35rem;">
+                        <div class="history-filter-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.875rem; font-weight: 700; color: var(--navy-900);">Total Logged:</span>
                             <span id="history-total-count" class="badge badge-edu">0 entries</span>
                         </div>
 
-                        <div style="display: flex; flex-wrap: wrap; gap: 0.875rem; align-items: center;">
-                            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem;">
-                                <label for="history-filter-rating" style="font-weight: 600; color: var(--slate-600);">Rating:</label>
-                                <select id="history-filter-rating" class="form-control" style="width: auto; padding: 0.35rem 0.75rem; font-size: 0.8125rem;">
+                        <div class="history-filter-controls">
+                            <div class="history-filter-item">
+                                <label for="history-filter-rating" class="form-label" style="margin-bottom: 0.25rem; font-size: 0.8125rem;">Filter by Rating</label>
+                                <select id="history-filter-rating" class="form-control">
                                     <option value="ALL">All Ratings</option>
                                     <option value="GOOD">GOOD (80–100)</option>
                                     <option value="AVERAGE">AVERAGE (60–79)</option>
@@ -157,9 +157,9 @@
                                 </select>
                             </div>
 
-                            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem;">
-                                <label for="history-filter-type" style="font-weight: 600; color: var(--slate-600);">Type:</label>
-                                <select id="history-filter-type" class="form-control" style="width: auto; padding: 0.35rem 0.75rem; font-size: 0.8125rem;">
+                            <div class="history-filter-item">
+                                <label for="history-filter-type" class="form-label" style="margin-bottom: 0.25rem; font-size: 0.8125rem;">Filter by Type</label>
+                                <select id="history-filter-type" class="form-control">
                                     <option value="ALL">All Entries</option>
                                     <option value="Manual Calculation">Calculations</option>
                                     <option value="Simulation">Simulations</option>

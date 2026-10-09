@@ -34,24 +34,12 @@ export const ApiService = {
     },
 
     /**
-     * Updates visual database connection badge across application headers
+     * Updates visual database connection badge across application headers (Disabled per UI preference)
      */
     updateDatabaseStatusBadge() {
         const badges = document.querySelectorAll('.db-status-badge');
         badges.forEach(badge => {
-            if (this.isMongoConnected) {
-                badge.innerHTML = '🟢 MongoDB Connected';
-                badge.className = 'badge rating-badge rating-good db-status-badge';
-                badge.title = 'Active MongoDB Database Connection';
-            } else if (this.isServerActive) {
-                badge.innerHTML = '🟡 Local Mode (MongoDB Offline)';
-                badge.className = 'badge rating-badge rating-average db-status-badge';
-                badge.title = 'Express Server active; using localStorage for storage';
-            } else {
-                badge.innerHTML = '⚪ Client-Side Mode';
-                badge.className = 'badge badge-edu db-status-badge';
-                badge.title = 'Running directly via browser localStorage';
-            }
+            badge.style.display = 'none';
         });
     },
 

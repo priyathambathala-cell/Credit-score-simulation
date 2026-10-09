@@ -930,6 +930,43 @@ img, svg {
   margin-top: 0.35rem;
 }
 
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .form-control {
+  padding-right: 2.75rem;
+}
+
+.btn-toggle-password {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--slate-400);
+  padding: 0.35rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: var(--transition-fast);
+  z-index: 5;
+  user-select: none;
+}
+
+.btn-toggle-password:hover {
+  color: var(--primary);
+  background: var(--slate-100);
+}
+
 .form-error {
   font-size: 0.8125rem;
   color: var(--rose-600);

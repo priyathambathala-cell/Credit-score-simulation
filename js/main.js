@@ -178,6 +178,31 @@ export const UI = {
                 }
             });
         });
+    },
+
+    /**
+     * Password show/hide toggle for input fields
+     */
+    initPasswordToggles() {
+        document.querySelectorAll('.btn-toggle-password').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                if (!input) return;
+
+                const isPassword = input.getAttribute('type') === 'password';
+                input.setAttribute('type', isPassword ? 'text' : 'password');
+
+                const eyeSpan = btn.querySelector('.eye-icon');
+                if (eyeSpan) {
+                    eyeSpan.textContent = isPassword ? '🙈' : '👁️';
+                }
+                const label = isPassword ? 'Hide password' : 'Show password';
+                btn.setAttribute('aria-label', label);
+                btn.setAttribute('title', label);
+            });
+        });
     }
 };
 
@@ -186,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     UI.initMobileNav();
     UI.highlightActiveNav();
     UI.initModals();
+    UI.initPasswordToggles();
 });
 
 if (typeof window !== 'undefined') {

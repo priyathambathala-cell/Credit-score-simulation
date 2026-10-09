@@ -55,7 +55,7 @@
             <form id="register-form">
                 <div class="form-group">
                     <label class="form-label" for="reg-fullname">Full Name</label>
-                    <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Priyatham kumar" required>
+                    <input type="text" id="reg-fullname" class="form-control" placeholder="Enter your full name" required>
                 </div>
 
                 <div class="form-group">
@@ -66,12 +66,22 @@
                 <div class="form-row-2col" style="gap: 1rem;">
                     <div class="form-group">
                         <label class="form-label" for="reg-password">Password</label>
-                        <input type="password" id="reg-password" class="form-control" placeholder="Min 6 chars" required minlength="6">
+                        <div class="password-input-wrapper">
+                            <input type="password" id="reg-password" class="form-control" placeholder="Min 6 chars" required minlength="6">
+                            <button type="button" class="btn-toggle-password" data-target="reg-password" aria-label="Toggle password visibility" title="Show password">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="reg-confirm-password">Confirm Password</label>
-                        <input type="password" id="reg-confirm-password" class="form-control" placeholder="Repeat password" required minlength="6">
+                        <div class="password-input-wrapper">
+                            <input type="password" id="reg-confirm-password" class="form-control" placeholder="Repeat password" required minlength="6">
+                            <button type="button" class="btn-toggle-password" data-target="reg-confirm-password" aria-label="Toggle password visibility" title="Show password">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

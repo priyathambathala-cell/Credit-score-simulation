@@ -155,14 +155,6 @@ export const DashboardController = {
             });
         }
 
-        // Desktop Site Guide Button in Hub
-        const btnDesktopGuide = document.getElementById('btn-desktop-guide-dash');
-        if (btnDesktopGuide) {
-            btnDesktopGuide.addEventListener('click', () => {
-                UI.openDesktopGuideModal();
-            });
-        }
-
         // 1-Click Hypothetical Scenario Switches
         const scenarioBtns = document.querySelectorAll('.btn-scenario-pill');
         const btnRevert = document.getElementById('btn-revert-scenario');

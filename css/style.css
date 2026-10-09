@@ -410,6 +410,249 @@ img, svg {
   gap: 0.875rem;
 }
 
+/* ==========================================================================
+   RGMCET College Brand & Interface Styles
+   ========================================================================== */
+.brand-logo-rgmcet {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.rgmcet-logo-nav {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.brand-college-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #fb923c;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.brand-main-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.brand-title-accent {
+  color: #60a5fa;
+}
+
+/* Navbar Action Pills (Student Register, Student Login, Faculty Login, Admin Login) */
+.nav-actions-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-btn-pill {
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.45rem 0.95rem;
+  transition: var(--transition-fast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.nav-btn-register {
+  background: rgba(255, 255, 255, 0.08);
+  color: #93c5fd;
+  border: 1.5px solid #3b82f6;
+}
+
+.nav-btn-register:hover {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.nav-btn-student {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1.5px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+}
+
+.nav-btn-student:hover {
+  background: #1d4ed8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.nav-btn-faculty {
+  background: #059669;
+  color: #ffffff;
+  border: 1.5px solid #059669;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.35);
+}
+
+.nav-btn-faculty:hover {
+  background: #047857;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.nav-btn-admin {
+  background: #1e293b;
+  color: #ffffff;
+  border: 1.5px solid #475569;
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.35);
+}
+
+.nav-btn-admin:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Floating Institutional Badge */
+.college-hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.college-institutional-card {
+  background: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1.4rem 0.5rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.95rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.25), 0 0 25px rgba(99, 102, 241, 0.15);
+  border: 1.5px solid rgba(226, 232, 240, 0.9);
+  max-width: 95%;
+  animation: floatBadge 3.5s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.college-logo-box {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.college-logo-badge {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.college-details {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.college-name-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.college-sub-text {
+  font-size: 0.76rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.college-suite-badge {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 1.1rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
+}
+
+/* Sidebar Custom Brand */
+.sidebar-brand-custom {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.sidebar-rgmcet-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.sidebar-college-sub {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #fb923c;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sidebar-title-main {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sidebar-accent {
+  color: #818cf8;
+}
+
 .mobile-nav-toggle {
   display: none;
   background: none;

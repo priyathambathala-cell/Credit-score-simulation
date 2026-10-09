@@ -7,6 +7,26 @@
     <meta name="description" content="Simulate financial changes and observe real-time estimated credit score deltas.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/simulation.css">
+    <!-- Immediate Synchronous Route Guard (Verifies Login Before Access) -->
+    <script>
+        (function() {
+            try {
+                var session = localStorage.getItem('credit_engine_user_session');
+                var user = session ? JSON.parse(session) : null;
+                if (!user || !user.email) {
+                    document.documentElement.style.display = 'none';
+                    window.location.replace('login.html?redirect=simulation.html&msg=login_required');
+                }
+            } catch(e) {
+                document.documentElement.style.display = 'none';
+                window.location.replace('login.html?redirect=simulation.html&msg=login_required');
+            }
+        })();
+    </script>
+    <script type="module">
+        import { AuthService } from './js/auth.js';
+        AuthService.requireAuth('login.html');
+    </script>
 </head>
 <body id="simulation-app">
 

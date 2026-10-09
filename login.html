@@ -34,10 +34,19 @@
         <div style="background: #ffffff; width: 100%; max-width: 450px; border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 35px rgba(99, 102, 241, 0.2); border: 1.5px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
             <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-primary);"></div>
             
+            <!-- Contextual Verification Notice if redirected from website features -->
+            <div id="login-notice" class="alert alert-info" style="display: none; margin-bottom: 1.5rem; font-size: 0.85rem;">
+                <span>🔒</span>
+                <div>
+                    <strong>Verification Required</strong><br>
+                    Please enter and verify your login details below before accessing the website tools.
+                </div>
+            </div>
+
             <div style="text-align: center; margin-bottom: 2rem;">
                 <span class="badge badge-edu" style="margin-bottom: 0.6rem;">🎓 Demo / Educational Portal</span>
                 <h1 style="font-size: 1.85rem; margin-bottom: 0.35rem; color: var(--navy-900);">Student Login</h1>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Access your educational simulation dashboard</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Verify your credentials to enter the simulation engine</p>
             </div>
 
             <!-- Error Box -->
@@ -90,6 +99,12 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const redirectTarget = urlParams.get('redirect') || 'dashboard.html';
+        const msg = urlParams.get('msg');
+
+        if (msg === 'login_required' || msg === 'signup_required') {
+            const notice = document.getElementById('login-notice');
+            if (notice) notice.style.display = 'flex';
+        }
 
         const regLink = document.getElementById('link-to-register');
         if (regLink && redirectTarget) {

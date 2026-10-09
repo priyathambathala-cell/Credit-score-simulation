@@ -6,6 +6,22 @@
     <title>Score History | Credit Score Simulation Engine</title>
     <meta name="description" content="View past calculations, simulation logs, and score changes.">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Immediate Synchronous Route Guard (Blocks Unauthenticated Access) -->
+    <script>
+        (function() {
+            try {
+                var session = localStorage.getItem('credit_engine_user_session');
+                var user = session ? JSON.parse(session) : null;
+                if (!user || !user.email) {
+                    document.documentElement.style.display = 'none';
+                    window.location.replace('register.html?redirect=history.html&msg=signup_required');
+                }
+            } catch(e) {
+                document.documentElement.style.display = 'none';
+                window.location.replace('register.html?redirect=history.html&msg=signup_required');
+            }
+        })();
+    </script>
     <script type="module">
         import { AuthService } from './js/auth.js';
         AuthService.requireAuth('register.html');

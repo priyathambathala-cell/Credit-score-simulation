@@ -156,6 +156,11 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -171,6 +176,10 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1289,9 +1298,33 @@ img, svg {
 }
 
 @media (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
+    overscroll-behavior-y: auto;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .app-wrapper {
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+
+  .main-content {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   /* Off-canvas mobile sidebar */
@@ -1304,11 +1337,15 @@ img, svg {
     height: 100vh;
     z-index: 500;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .sidebar.open {
     left: 0;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .sidebar-close-btn {
@@ -1608,8 +1645,8 @@ img, svg {
   align-items: center;
   gap: 0.6rem;
   line-height: 1.45;
-  flex: 1;
-  min-width: 260px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .desktop-notice-actions {

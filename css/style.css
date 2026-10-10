@@ -457,7 +457,7 @@ img, svg {
   color: #60a5fa;
 }
 
-/* Navbar Action Pills (Student Register, Student Login, Faculty Login, Admin Login) */
+/* Navbar Action Pills (Student Register, Student Login, Admin Login) */
 .nav-actions-pills {
   display: flex;
   align-items: center;

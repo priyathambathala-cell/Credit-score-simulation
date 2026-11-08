@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Financial Decision Simulator | Credit Score Simulation Engine</title>
     <meta name="description" content="Simulate financial changes and observe real-time estimated credit score deltas.">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/simulation.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/simulation.css">
     <!-- Immediate Synchronous Route Guard (Verifies Login Before Access) -->
     <script>
         (function() {
@@ -24,7 +25,7 @@
         })();
     </script>
     <script type="module">
-        import { AuthService } from './js/auth.js';
+        import { AuthService } from '/js/auth.js';
         AuthService.requireAuth('login.html');
     </script>
 </head>
@@ -41,7 +42,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="sidebar-brand-custom">
-                    <img src="images/rgmcet_logo.jpg" alt="RGMCET Logo" class="sidebar-rgmcet-logo">
+                    <img src="/images/rgmcet_logo.jpg" alt="RGMCET Logo" class="sidebar-rgmcet-logo">
                     <div class="sidebar-brand-text">
                         <span class="sidebar-college-sub">RGMCET AUTONOMOUS</span>
                         <span class="sidebar-title-main">ScoreSim</span>
@@ -405,9 +406,9 @@
     </div>
 
     <!-- Scripts -->
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/auth.js"></script>
-    <script type="module" src="js/scoring-engine.js"></script>
-    <script type="module" src="js/simulation.js"></script>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/auth.js"></script>
+    <script type="module" src="/js/scoring-engine.js"></script>
+    <script type="module" src="/js/simulation.js"></script>
 </body>
 </html>

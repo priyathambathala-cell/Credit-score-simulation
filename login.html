@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Student Login | Credit Score Simulation Engine</title>
     <meta name="description" content="Educational login portal for the Credit Score Simulation Engine.">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body style="background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.25) 0%, rgba(236, 72, 153, 0.12) 40%, rgba(7, 10, 19, 0) 75%), linear-gradient(180deg, #070a13 0%, #0c1021 60%, #11172e 100%); min-height: 100vh; display: flex; flex-direction: column;">
 
@@ -18,7 +19,7 @@
     <!-- Simple Top Bar -->
     <div class="auth-topbar">
         <a href="index.html" class="brand-logo-rgmcet">
-            <img src="images/rgmcet_logo.jpg" alt="RGMCET Logo" class="rgmcet-logo-nav">
+            <img src="/images/rgmcet_logo.jpg" alt="RGMCET Logo" class="rgmcet-logo-nav">
             <div class="brand-text-block">
                 <span class="brand-college-tag">RGMCET AUTONOMOUS</span>
                 <span class="brand-main-title">Credit Score <span class="brand-title-accent">Simulation Engine</span></span>
@@ -81,8 +82,8 @@
     </div>
 
     <script type="module">
-        import { AuthService } from './js/auth.js';
-        import { UI } from './js/main.js';
+        import { AuthService } from '/js/auth.js';
+        import { UI } from '/js/main.js';
 
         const urlParams = new URLSearchParams(window.location.search);
         const redirectTarget = urlParams.get('redirect') || 'dashboard.html';

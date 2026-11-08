@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Credit Score Simulation Engine | Educational Project</title>
     <meta name="description" content="A transparent, rule-based credit score simulation engine designed for 2nd-year B.Tech educational demonstration.">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/simulation.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/simulation.css">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
     <header class="public-navbar">
         <div class="container navbar-container">
             <a href="index.html" class="brand-logo-rgmcet">
-                <img src="images/rgmcet_logo.jpg" alt="RGMCET Logo" class="rgmcet-logo-nav">
+                <img src="/images/rgmcet_logo.jpg" alt="RGMCET Logo" class="rgmcet-logo-nav">
                 <div class="brand-text-block">
                     <span class="brand-college-tag">RGMCET AUTONOMOUS</span>
                     <span class="brand-main-title">Credit Score <span class="brand-title-accent">Simulation Engine</span></span>
@@ -60,7 +61,7 @@
                 <div class="college-hero-header">
                     <div class="college-institutional-card">
                         <div class="college-logo-box">
-                            <img src="images/rgmcet_logo.jpg" alt="RGMCET Official Logo" class="college-logo-badge">
+                            <img src="/images/rgmcet_logo.jpg" alt="RGMCET Official Logo" class="college-logo-badge">
                         </div>
                         <div class="college-details">
                             <div class="college-name-text">Rajeev Gandhi Memorial College of Engg. & Tech.</div>
@@ -317,10 +318,10 @@
         </div>
     </footer>
 
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/auth.js"></script>
     <script type="module">
-        import { AuthService } from './js/auth.js';
+        import { AuthService } from '/js/auth.js';
         document.addEventListener('DOMContentLoaded', () => {
             if (AuthService.isAuthenticated()) {
                 const heroBtn = document.getElementById('hero-cta-btn');
